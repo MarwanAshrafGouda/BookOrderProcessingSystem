@@ -49,19 +49,22 @@ public class JDBCConnection implements IJDBCConnection {
     public int signIn(String username, String password) {
         // returns 0 if a customer and 1 if a manager
         String[] databaseInformation = JDBCConnect();
+        int manager = 0;
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
-                CallableStatement statement = conn.prepareCall("{call signIn(?, ?)}")
+                CallableStatement statement = conn.prepareCall("{call signIn(?, ?, ?)}")
         ) {
             statement.setString(1, username);
             statement.setString(2, password);
             statement.execute();
+            manager = statement.getInt(3);
             this.username = username;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         // with this value change attribute is_manager from false to true
-        return 0;
+        this.isManager = manager == 1;
+        return manager;
     }
 
     @Override
@@ -130,6 +133,7 @@ public class JDBCConnection implements IJDBCConnection {
                 CallableStatement statement = conn.prepareCall("{call ISBNSearch(?)}")
         ) {
             statement.setInt(1, ISBN);
+            statement.execute();
             return statement.getResultSet();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -145,6 +149,7 @@ public class JDBCConnection implements IJDBCConnection {
                 CallableStatement statement = conn.prepareCall("{call titleSearch(?)}")
         ) {
             statement.setString(1, title);
+            statement.execute();
             return statement.getResultSet();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -160,6 +165,7 @@ public class JDBCConnection implements IJDBCConnection {
                 CallableStatement statement = conn.prepareCall("{call authorSearch(?)}")
         ) {
             statement.setString(1, author);
+            statement.execute();
             return statement.getResultSet();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -175,6 +181,7 @@ public class JDBCConnection implements IJDBCConnection {
                 CallableStatement statement = conn.prepareCall("{call publisherSearch(?)}")
         ) {
             statement.setString(1, publisher);
+            statement.execute();
             return statement.getResultSet();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -190,6 +197,7 @@ public class JDBCConnection implements IJDBCConnection {
                 CallableStatement statement = conn.prepareCall("{call categorySearch(?)}")
         ) {
             statement.setString(1, category);
+            statement.execute();
             return statement.getResultSet();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -242,6 +250,7 @@ public class JDBCConnection implements IJDBCConnection {
                 CallableStatement statement = conn.prepareCall("{call viewCart(?)}")
         ) {
             statement.setString(1, this.username);
+            statement.execute();
             return statement.getResultSet();
         } catch (SQLException e) {
             e.printStackTrace();
