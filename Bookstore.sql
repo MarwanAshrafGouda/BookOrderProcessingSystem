@@ -91,51 +91,83 @@ ON BOOK (Category);
 
 DELIMITER $$
 CREATE 
-    TRIGGER  Confirm_Order
- BEFORE DELETE ON BOOK_ORDER FOR EACH ROW 
-    BEGIN 
-		UPDATE BOOK 
-		SET 
-			No_of_Copies = No_of_Copies + OLD.Quantity
-		WHERE
-			ISBN = OLD.ISBN;
-    END$$
-DELIMITER ; 
-
-
-DELIMITER $$
-CREATE 
     TRIGGER Place_Order
  AFTER UPDATE ON BOOK FOR EACH ROW
     BEGIN 
-		INSERT INTO BOOK_ORDER (ISBN) 
-		SELECT 
-			ISBN
-		FROM
-			BOOK
-		WHERE
-			ISBN = OLD.ISBN
-				AND OLD.No_of_Copies >= Threshold
-				AND No_of_Copies < Threshold; 
+		IF (OLD.No_of_Copies >= OLD.Threshold AND NEW.No_of_Copies < NEW.Threshold) THEN
+			INSERT INTO BOOK_ORDER (ISBN) VALUES (OLD.ISBN);
+		END IF;
     END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE 
+    TRIGGER  Confirm_Order
+ BEFORE DELETE ON BOOK_ORDER FOR EACH ROW 
+	 BEGIN
+		 UPDATE BOOK
+		 SET 
+			No_of_Copies = No_of_Copies + OLD.Quantity
+		 WHERE 
+			ISBN = OLD.ISBN;
+    END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE 
+    TRIGGER  Non_Zero_Book_Quantity
+ BEFORE UPDATE ON BOOK FOR EACH ROW 
+	 BEGIN
+		IF (NEW.No_of_Copies < 0) THEN 
+        SIGNAL SQLSTATE '45000'             		#https://www.mysqltutorial.org/mysql-signal-resignal/
+			SET MESSAGE_TEXT = 'OUT OF STOCK';
+        END IF;
+	 END $$
 DELIMITER ;
 
 INSERT INTO PUBLISHER VALUES ('Publisher', NULL, NULL);
 INSERT INTO BOOK VALUES (123456789, 'Harry Potter', 'Publisher', 'Science', 12, 1999, 15, 9);
-SELECT * FROM BOOK;
-SELECT * FROM BOOK_ORDER;
+SELECT 
+    *
+FROM
+    BOOK;
+SELECT 
+    *
+FROM
+    BOOK_ORDER;
 
-UPDATE BOOK SET No_of_Copies = 100 WHERE ISBN = 123456789;
-UPDATE BOOK SET No_of_Copies = 100 WHERE ISBN = 123456788;
-UPDATE BOOK SET No_of_Copies = 100 WHERE ISBN = 123456780;
+UPDATE BOOK 
+SET 
+    No_of_Copies = 8
+WHERE
+    ISBN = 123456789;
+UPDATE BOOK 
+SET 
+    No_of_Copies = -1
+WHERE
+    ISBN = 123456788;
+UPDATE BOOK 
+SET 
+    No_of_Copies = 8
+WHERE
+    ISBN = 123456780;
 DELETE FROM BOOK_ORDER;
 INSERT INTO BOOK VALUES (123456788, 'Harry Potter 2', 'Publisher', 'Science', 12, 1999, 15, 9);
 INSERT INTO BOOK VALUES (123456780, 'Harry Potter 3', 'Publisher', 'Science', 12, 1999, 15, 9);
 
-DELETE FROM BOOK_ORDER WHERE Order_No = 3;
+DELETE FROM BOOK_ORDER 
+WHERE
+    Order_No = 3;
 INSERT INTO BOOK_ORDER (ISBN) VALUES (123456780);
-UPDATE BOOK SET Title = 'Harry Potter 4' WHERE ISBN = 123456788;
-DELETE FROM BOOK_ORDER WHERE Order_No = 2;
+UPDATE BOOK 
+SET 
+    Title = 'Harry Potter 4'
+WHERE
+    ISBN = 123456788;
+DELETE FROM BOOK_ORDER 
+WHERE
+    Order_No = 2;
+DELETE FROM BOOK_ORDER;
 
 DROP TRIGGER Confirm_Order;
 DROP TRIGGER Place_Order;
