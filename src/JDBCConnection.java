@@ -17,7 +17,7 @@ public class JDBCConnection implements IJDBCConnection {
 
     private String[] JDBCConnect() {
         {
-            String dbURL = "jdbc:mysql://localhost:3306/Bookstore?autoReconnect=true&useSSL=false";
+            String dbURL = "jdbc:mysql://197.48.45.243:3306/Bookstore?autoReconnect=true&useSSL=false";
             String user = "wzattout";
             String password = "wzattout_pass";
             return new String[]{dbURL, user, password};
