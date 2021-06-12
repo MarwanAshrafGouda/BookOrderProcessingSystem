@@ -241,7 +241,17 @@ public class JDBC_Connection {
     }
 
     public void logOut() {
-        this.username = "";
+        String[] databaseInformation = JDBCConnect();
+        try (
+                Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
+                CallableStatement statement = conn.prepareCall("{call logOut(?)}")
+        ) {
+            statement.setString(1, this.username);
+            statement.execute();
+            this.username = "";
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void promoteUser(String username) {
