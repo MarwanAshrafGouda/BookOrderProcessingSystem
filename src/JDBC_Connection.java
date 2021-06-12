@@ -6,23 +6,26 @@ public class JDBC_Connection {
 
     String[] JDBCConnect() {
         {
-            // change "SchemaName" with the name of your schema
-            String dbURL = "jdbc:mysql://localhost:3306/SchemaName?autoReconnect=true&useSSL=false";
-            String user = "root";
-            // change "Secret" with your password
-            String password = "Secret";
+            String dbURL = "jdbc:mysql://localhost:3306/Bookstore?autoReconnect=true&useSSL=false";
+            String user = "wzattout";
+            String password = "wzattout_pass";
             return new String[]{dbURL, user, password};
         }
     }
 
-    public void signUp(String username, String password) {
+    public void signUp(String username, String password, String firstName, String lastName, String emailAddress, String phoneNumber, String shippingAddress) {
         String[] databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
-                CallableStatement statement = conn.prepareCall("{call signUp(?, ?)}")
+                CallableStatement statement = conn.prepareCall("{call signUp(?, ?, ?, ?, ?, ?, ?)}")
         ) {
             statement.setString(1, username);
             statement.setString(2, password);
+            statement.setString(3, firstName);
+            statement.setString(2, lastName);
+            statement.setString(1, emailAddress);
+            statement.setString(2, phoneNumber);
+            statement.setString(2, shippingAddress);
             statement.execute();
             this.username = username;
         } catch (SQLException e) {
@@ -99,69 +102,74 @@ public class JDBC_Connection {
         }
     }
 
-    public void ISBNSearch(int ISBN) {
+    public ResultSet ISBNSearch(int ISBN) {
         String[] databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
                 CallableStatement statement = conn.prepareCall("{call ISBNSearch(?)}")
         ) {
             statement.setInt(1, ISBN);
-            statement.execute();
+            return statement.getResultSet();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
-    public void titleSearch(String title) {
+    public ResultSet titleSearch(String title) {
         String[] databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
                 CallableStatement statement = conn.prepareCall("{call titleSearch(?)}")
         ) {
             statement.setString(1, title);
-            statement.execute();
+            return statement.getResultSet();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
-    public void authorSearch(String author) {
+    public ResultSet authorSearch(String author) {
         String[] databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
                 CallableStatement statement = conn.prepareCall("{call authorSearch(?)}")
         ) {
             statement.setString(1, author);
-            statement.execute();
+            return statement.getResultSet();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
-    public void publisherSearch(String publisher) {
+    public ResultSet publisherSearch(String publisher) {
         String[] databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
                 CallableStatement statement = conn.prepareCall("{call publisherSearch(?)}")
         ) {
             statement.setString(1, publisher);
-            statement.execute();
+            return statement.getResultSet();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
-    public void categorySearch(String category) {
+    public ResultSet categorySearch(String category) {
         String[] databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
                 CallableStatement statement = conn.prepareCall("{call categorySearch(?)}")
         ) {
             statement.setString(1, category);
-            statement.execute();
+            return statement.getResultSet();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     public void editUserInfo(String password, String firstName, String lastName, String emailAddress, String phoneNumber, String shippingAddress) {
@@ -199,17 +207,18 @@ public class JDBC_Connection {
         }
     }
 
-    public void viewCart() {
+    public ResultSet viewCart() {
         String[] databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
                 CallableStatement statement = conn.prepareCall("{call viewCart(?)}")
         ) {
             statement.setString(1, this.username);
-            statement.execute();
+            return statement.getResultSet();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     public void removeFromCart(int ISBN, int copiesNo) {
@@ -241,7 +250,17 @@ public class JDBC_Connection {
     }
 
     public void logOut() {
-        this.username = "";
+        String[] databaseInformation = JDBCConnect();
+        try (
+                Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
+                CallableStatement statement = conn.prepareCall("{call logOut(?)}")
+        ) {
+            statement.setString(1, this.username);
+            statement.execute();
+            this.username = "";
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void promoteUser(String username) {
@@ -257,7 +276,7 @@ public class JDBC_Connection {
         }
     }
 
-    public void totalSalesReport () {
+    public void totalSalesReport() {
         String[] databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
@@ -269,7 +288,7 @@ public class JDBC_Connection {
         }
     }
 
-    public void top5CustomersReport () {
+    public void top5CustomersReport() {
         String[] databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
@@ -281,7 +300,7 @@ public class JDBC_Connection {
         }
     }
 
-    public void top10SellingBooksReport () {
+    public void top10SellingBooksReport() {
         String[] databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
