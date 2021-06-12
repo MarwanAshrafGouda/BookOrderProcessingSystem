@@ -60,6 +60,7 @@ public class JDBCConnection implements IJDBCConnection {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        // with this value change attribute is_manager from false to true
         return 0;
     }
 
