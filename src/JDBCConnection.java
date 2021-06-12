@@ -1,10 +1,16 @@
 import java.sql.*;
 
-public class JDBC_Connection {
+public class JDBCConnection implements IJDBCConnection {
 
     private String username;
 
-    String[] JDBCConnect() {
+    @Override
+    public String getUsername() {
+        return this.username;
+    }
+
+    @Override
+    public String[] JDBCConnect() {
         {
             String dbURL = "jdbc:mysql://localhost:3306/Bookstore?autoReconnect=true&useSSL=false";
             String user = "wzattout";
@@ -13,6 +19,7 @@ public class JDBC_Connection {
         }
     }
 
+    @Override
     public void signUp(String username, String password, String firstName, String lastName, String emailAddress, String phoneNumber, String shippingAddress) {
         String[] databaseInformation = JDBCConnect();
         try (
@@ -33,7 +40,9 @@ public class JDBC_Connection {
         }
     }
 
-    public void signIn(String username, String password) {
+    @Override
+    public int signIn(String username, String password) {
+        // returns 0 if a customer and 1 if a manager
         String[] databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
@@ -46,8 +55,10 @@ public class JDBC_Connection {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return 0;
     }
 
+    @Override
     public void addBook(int ISBN, String title, String authors, String publisher, int publicationYear, int sellingPrice, String category) {
         String[] arrOfAuthors = authors.split(","), databaseInformation = JDBCConnect();
         try (
@@ -61,6 +72,7 @@ public class JDBC_Connection {
         }
     }
 
+    @Override
     public void modifyBook(int ISBN, String title, String authors, String publisher, int publicationYear, int sellingPrice, String category) {
         String[] arrOfAuthors = authors.split(","), databaseInformation = JDBCConnect();
         try (
@@ -89,6 +101,8 @@ public class JDBC_Connection {
         }
     }
 
+
+    @Override
     public void confirmOrder(int orderNo) {
         String[] databaseInformation = JDBCConnect();
         try (
@@ -102,6 +116,7 @@ public class JDBC_Connection {
         }
     }
 
+    @Override
     public ResultSet ISBNSearch(int ISBN) {
         String[] databaseInformation = JDBCConnect();
         try (
@@ -116,6 +131,7 @@ public class JDBC_Connection {
         return null;
     }
 
+    @Override
     public ResultSet titleSearch(String title) {
         String[] databaseInformation = JDBCConnect();
         try (
@@ -130,6 +146,7 @@ public class JDBC_Connection {
         return null;
     }
 
+    @Override
     public ResultSet authorSearch(String author) {
         String[] databaseInformation = JDBCConnect();
         try (
@@ -144,6 +161,7 @@ public class JDBC_Connection {
         return null;
     }
 
+    @Override
     public ResultSet publisherSearch(String publisher) {
         String[] databaseInformation = JDBCConnect();
         try (
@@ -158,6 +176,7 @@ public class JDBC_Connection {
         return null;
     }
 
+    @Override
     public ResultSet categorySearch(String category) {
         String[] databaseInformation = JDBCConnect();
         try (
@@ -172,6 +191,7 @@ public class JDBC_Connection {
         return null;
     }
 
+    @Override
     public void editUserInfo(String password, String firstName, String lastName, String emailAddress, String phoneNumber, String shippingAddress) {
         String[] databaseInformation = JDBCConnect();
         try (
@@ -192,6 +212,7 @@ public class JDBC_Connection {
 
     }
 
+    @Override
     public void addToCart(int ISBN, int copiesNo) {
         String[] databaseInformation = JDBCConnect();
         try (
@@ -207,6 +228,7 @@ public class JDBC_Connection {
         }
     }
 
+    @Override
     public ResultSet viewCart() {
         String[] databaseInformation = JDBCConnect();
         try (
@@ -221,6 +243,7 @@ public class JDBC_Connection {
         return null;
     }
 
+    @Override
     public void removeFromCart(int ISBN, int copiesNo) {
         String[] databaseInformation = JDBCConnect();
         try (
@@ -236,6 +259,7 @@ public class JDBC_Connection {
         }
     }
 
+    @Override
     public void checkOut() {
         String[] databaseInformation = JDBCConnect();
         try (
@@ -249,6 +273,7 @@ public class JDBC_Connection {
         }
     }
 
+    @Override
     public void logOut() {
         String[] databaseInformation = JDBCConnect();
         try (
@@ -263,6 +288,7 @@ public class JDBC_Connection {
         }
     }
 
+    @Override
     public void promoteUser(String username) {
         String[] databaseInformation = JDBCConnect();
         try (
@@ -276,6 +302,7 @@ public class JDBC_Connection {
         }
     }
 
+    @Override
     public void totalSalesReport() {
         String[] databaseInformation = JDBCConnect();
         try (
@@ -288,6 +315,7 @@ public class JDBC_Connection {
         }
     }
 
+    @Override
     public void top5CustomersReport() {
         String[] databaseInformation = JDBCConnect();
         try (
@@ -300,6 +328,7 @@ public class JDBC_Connection {
         }
     }
 
+    @Override
     public void top10SellingBooksReport() {
         String[] databaseInformation = JDBCConnect();
         try (
