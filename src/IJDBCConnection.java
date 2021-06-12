@@ -9,10 +9,6 @@ public interface IJDBCConnection {
 
     int signIn(String username, String password);
 
-    void addBook(int ISBN, String title, String authors, String publisher, int publicationYear, int sellingPrice, String category);
-
-    void modifyBook(int ISBN, String title, String authors, String publisher, int publicationYear, int sellingPrice, String category);
-
     ResultSet ISBNSearch(int ISBN);
 
     ResultSet titleSearch(String title);
@@ -22,6 +18,8 @@ public interface IJDBCConnection {
     ResultSet publisherSearch(String publisher);
 
     ResultSet categorySearch(String category);
+
+    void editUserInfo(String password, String firstName, String lastName, String emailAddress, String phoneNumber, String shippingAddress);
 
     void addToCart(int ISBN, int copiesNo);
 
@@ -34,10 +32,13 @@ public interface IJDBCConnection {
     void logOut();
 
     // manager
-    void confirmOrder(int orderNo);
+    void addBook(int ISBN, String title, String authors, String publisher, int publicationYear, int sellingPrice, String category);
 
     // manager
-    void editUserInfo(String password, String firstName, String lastName, String emailAddress, String phoneNumber, String shippingAddress);
+    void modifyBook(int ISBN, String title, String authors, String publisher, int publicationYear, int sellingPrice, String category);
+
+    // manager
+    void confirmOrder(int orderNo);
 
     // manager
     void promoteUser(String username);
