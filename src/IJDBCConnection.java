@@ -9,7 +9,7 @@ public interface IJDBCConnection {
     // has button -> logIn view
     void signUp(String username, String password, String firstName, String lastName, String emailAddress, String phoneNumber, String shippingAddress);
     // has button -> logIn view
-    int signIn(String username, String password);
+    Boolean signIn(String username, String password);
 
     // SEARCH:
     // has button -> Search view
@@ -25,6 +25,8 @@ public interface IJDBCConnection {
 
     // has button -> default view
     void editUserInfo(String password, String firstName, String lastName, String emailAddress, String phoneNumber, String shippingAddress);
+
+    public void editUserPassword(String oldPassword, String newPassword);
 
     //CART:
     // has button -> default view
@@ -42,15 +44,15 @@ public interface IJDBCConnection {
     // has button -> default view
     void confirmOrder(int orderNo);
     //BOOKS: Manager
-    void addBook(int ISBN, String title, String authors, String publisher, int publicationYear, int sellingPrice, String category);
+    void addBook(int ISBN, String title, String authors, String publisher, int publicationYear, int sellingPrice, String category, int threshold);
     // manager
-    void modifyBook(int ISBN, String title, String authors, String publisher, int publicationYear, int sellingPrice, String category);
+    void modifyBook(int ISBN, String title, String authors, String publisher, int publicationYear, int sellingPrice, String category, int threshold);
     // manager
     void promoteUser(String username);
     // manager
-    void totalSalesReport();
+    ResultSet totalSalesReport();
     // manager
-    void top5CustomersReport();
+    ResultSet top5CustomersReport();
     // manager
-    void top10SellingBooksReport();
+    ResultSet top10SellingBooksReport();
 }

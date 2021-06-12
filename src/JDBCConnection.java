@@ -34,10 +34,10 @@ public class JDBCConnection implements IJDBCConnection {
             statement.setString(1, username);
             statement.setString(2, password);
             statement.setString(3, firstName);
-            statement.setString(2, lastName);
-            statement.setString(1, emailAddress);
-            statement.setString(2, phoneNumber);
-            statement.setString(2, shippingAddress);
+            statement.setString(4, lastName);
+            statement.setString(5, emailAddress);
+            statement.setString(6, phoneNumber);
+            statement.setString(7, shippingAddress);
             statement.execute();
             this.username = username;
         } catch (SQLException e) {
@@ -46,10 +46,10 @@ public class JDBCConnection implements IJDBCConnection {
     }
 
     @Override
-    public int signIn(String username, String password) {
+    public Boolean signIn(String username, String password) {
         // returns 0 if a customer and 1 if a manager
         String[] databaseInformation = JDBCConnect();
-        int manager = 0;
+        boolean manager = false;
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
                 CallableStatement statement = conn.prepareCall("{call signIn(?, ?, ?)}")
@@ -57,55 +57,60 @@ public class JDBCConnection implements IJDBCConnection {
             statement.setString(1, username);
             statement.setString(2, password);
             statement.execute();
-            manager = statement.getInt(3);
+            manager = statement.getBoolean(3);
             this.username = username;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         // with this value change attribute is_manager from false to true
-        this.isManager = manager == 1;
+        this.isManager = manager;
         return manager;
     }
 
     @Override
-    public void addBook(int ISBN, String title, String authors, String publisher, int publicationYear, int sellingPrice, String category) {
+    public void addBook(int ISBN, String title, String authors, String publisher, int publicationYear, int sellingPrice, String category, int threshold) {
         String[] arrOfAuthors = authors.split(","), databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
-                CallableStatement statement1 = conn.prepareCall("{call addBook(?, ?, ?, ?, ?, ?)}");
+                CallableStatement statement1 = conn.prepareCall("{call addBook(?, ?, ?, ?, ?, ?, ?)}");
                 CallableStatement statement2 = conn.prepareCall("{call addAuthor(?, ?)}")
         ) {
-            modify(ISBN, title, publisher, publicationYear, sellingPrice, category, arrOfAuthors, statement1, statement2);
+            modify(ISBN, title, publisher, publicationYear, sellingPrice, category, arrOfAuthors, threshold, statement1, statement2, null);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void modifyBook(int ISBN, String title, String authors, String publisher, int publicationYear, int sellingPrice, String category) {
+    public void modifyBook(int ISBN, String title, String authors, String publisher, int publicationYear, int sellingPrice, String category, int threshold) {
         String[] arrOfAuthors = authors.split(","), databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
-                CallableStatement statement1 = conn.prepareCall("{call modifyBook(?, ?, ?, ?, ?, ?)}");
-                CallableStatement statement2 = conn.prepareCall("{call modifyAuthor(?, ?)}")
+                CallableStatement statement1 = conn.prepareCall("{call modifyBook(?, ?, ?, ?, ?, ?, ?)}");
+                CallableStatement statement3 = conn.prepareCall("{call removeAuthors(?)}");
+                CallableStatement statement2 = conn.prepareCall("{call addAuthor(?, ?)}")
         ) {
-            modify(ISBN, title, publisher, publicationYear, sellingPrice, category, arrOfAuthors, statement1, statement2);
+            modify(ISBN, title, publisher, publicationYear, sellingPrice, category, arrOfAuthors, threshold, statement1, statement2, statement3);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private void modify(int ISBN, String title, String publisher, int publicationYear, int sellingPrice, String category, String[] arrOfAuthors, CallableStatement statement1, CallableStatement statement2) throws SQLException {
+    private void modify(int ISBN, String title, String publisher, int publicationYear, int sellingPrice, String category, String[] arrOfAuthors, int threshold, CallableStatement statement1, CallableStatement statement2, CallableStatement statement3) throws SQLException {
         statement1.setInt(1, ISBN);
         statement1.setString(2, title);
         statement1.setString(3, publisher);
-        statement1.setInt(4, publicationYear);
+        statement1.setInt(6, publicationYear);
         statement1.setInt(5, sellingPrice);
-        statement1.setString(6, category);
+        statement1.setString(4, category);
+        statement1.setInt(7, threshold);
         statement1.execute();
-        for (String arrOfAuthor : arrOfAuthors) {
+        if (statement3 != null) {
+            statement3.setInt(1, ISBN);
+        }
+        for (String author : arrOfAuthors) {
             statement2.setInt(1, ISBN);
-            statement2.setString(2, arrOfAuthor);
+            statement2.setString(2, author);
             statement2.execute();
         }
     }
@@ -130,7 +135,7 @@ public class JDBCConnection implements IJDBCConnection {
         String[] databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
-                CallableStatement statement = conn.prepareCall("{call ISBNSearch(?)}")
+                CallableStatement statement = conn.prepareCall("{call searchByISBN(?)}")
         ) {
             statement.setInt(1, ISBN);
             statement.execute();
@@ -146,7 +151,7 @@ public class JDBCConnection implements IJDBCConnection {
         String[] databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
-                CallableStatement statement = conn.prepareCall("{call titleSearch(?)}")
+                CallableStatement statement = conn.prepareCall("{call searchByTitle(?)}")
         ) {
             statement.setString(1, title);
             statement.execute();
@@ -162,7 +167,7 @@ public class JDBCConnection implements IJDBCConnection {
         String[] databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
-                CallableStatement statement = conn.prepareCall("{call authorSearch(?)}")
+                CallableStatement statement = conn.prepareCall("{call searchByAuthor(?)}")
         ) {
             statement.setString(1, author);
             statement.execute();
@@ -178,7 +183,7 @@ public class JDBCConnection implements IJDBCConnection {
         String[] databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
-                CallableStatement statement = conn.prepareCall("{call publisherSearch(?)}")
+                CallableStatement statement = conn.prepareCall("{call searchByPublisher(?)}")
         ) {
             statement.setString(1, publisher);
             statement.execute();
@@ -194,7 +199,7 @@ public class JDBCConnection implements IJDBCConnection {
         String[] databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
-                CallableStatement statement = conn.prepareCall("{call categorySearch(?)}")
+                CallableStatement statement = conn.prepareCall("{call searchByCategory(?)}")
         ) {
             statement.setString(1, category);
             statement.execute();
@@ -206,14 +211,14 @@ public class JDBCConnection implements IJDBCConnection {
     }
 
     @Override
-    public void editUserInfo(String password, String firstName, String lastName, String emailAddress, String phoneNumber, String shippingAddress) {
+    public void editUserInfo(String username, String firstName, String lastName, String emailAddress, String phoneNumber, String shippingAddress) {
         String[] databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
-                CallableStatement statement = conn.prepareCall("{call categorySearch(?, ?, ?, ?, ?, ?, ?)}")
+                CallableStatement statement = conn.prepareCall("{call editUserInfo(?, ?, ?, ?, ?, ?, ?)}")
         ) {
             statement.setString(1, this.username);
-            statement.setString(2, password);
+            statement.setString(2, username);
             statement.setString(3, firstName);
             statement.setString(4, lastName);
             statement.setString(5, emailAddress);
@@ -223,7 +228,22 @@ public class JDBCConnection implements IJDBCConnection {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
+    @Override
+    public void editUserPassword(String oldPassword, String newPassword) {
+        String[] databaseInformation = JDBCConnect();
+        try (
+                Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
+                CallableStatement statement = conn.prepareCall("{call editUserPassword(?, ?, ?)}")
+        ) {
+            statement.setString(1, this.username);
+            statement.setString(2, oldPassword);
+            statement.setString(3, newPassword);
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -263,11 +283,10 @@ public class JDBCConnection implements IJDBCConnection {
         String[] databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
-                CallableStatement statement = conn.prepareCall("{call removeFromCart(?, ?, ?)}")
+                CallableStatement statement = conn.prepareCall("{call removeFromCart(?, ?)}")
         ) {
             statement.setString(1, this.username);
             statement.setInt(2, ISBN);
-            statement.setInt(3, copiesNo);
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -318,42 +337,48 @@ public class JDBCConnection implements IJDBCConnection {
     }
 
     @Override
-    public void totalSalesReport() {
+    public ResultSet totalSalesReport() {
         String[] databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
                 CallableStatement statement = conn.prepareCall("{call totalSalesReport()}")
         ) {
             statement.execute();
+            return statement.getResultSet();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     @Override
-    public void top5CustomersReport() {
+    public ResultSet top5CustomersReport() {
         String[] databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
                 CallableStatement statement = conn.prepareCall("{call top5CustomersReport()}")
         ) {
             statement.execute();
+            return statement.getResultSet();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     @Override
-    public void top10SellingBooksReport() {
+    public ResultSet top10SellingBooksReport() {
         String[] databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
                 CallableStatement statement = conn.prepareCall("{call top10SellingBooksReport()}")
         ) {
             statement.execute();
+            return statement.getResultSet();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
 }
