@@ -28,7 +28,7 @@ public class ManagerViewController {
     @FXML
     private Group orders_group, users_group;
     @FXML
-    private TextField orderNumber_txt, username_txt;
+    private TextField orderNumber_txt, username_txt, publisher_name_txt, publisher_address_txt, publisher_phoneNumber_txt;
     @FXML
     private Button search_btn;
 
@@ -71,6 +71,7 @@ public class ManagerViewController {
     public void modifyBook(ActionEvent event) throws IOException {
         updateBook(event , false);
     }
+
     private void updateBook(ActionEvent event , boolean addBook) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("UpdateBook.fxml"));
         root = loader.load();
@@ -82,6 +83,10 @@ public class ManagerViewController {
         stage.show();
     }
 
+// Add publisher
+    public void AddPublisher(ActionEvent event) throws IOException {
+        dbConn.addPublisher(publisher_name_txt.getText(), publisher_address_txt.getText(), publisher_phoneNumber_txt.getText());
+    }
 //ORDERS:
         public void showOrderSettings(){
             orders_group.setVisible(true);
@@ -89,7 +94,7 @@ public class ManagerViewController {
         }
 
         public void confirmOrder(){
-            dbConn.confirmOrder(Integer.parseInt(username_txt.getText()));
+            dbConn.confirmOrder(Integer.parseInt(orderNumber_txt.getText()));
         }
 
 // USERS:
@@ -110,6 +115,4 @@ public class ManagerViewController {
         stage.setScene(scene);
         stage.show();
     }
-
-
 }

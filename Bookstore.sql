@@ -404,11 +404,11 @@ BEGIN
 		BOOK.Selling_Price AS 'Unit Price',
 		BOOK.Selling_Price * SALE.No_of_Copies AS 'Price',
 		SALE.Date AS 'Date'
-	INTO OUTFILE 'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\totalSalesPrevMonthReport.csv'
-	FIELDS ENCLOSED BY '"'
-	TERMINATED BY ';'
-	ESCAPED BY '"'
-	LINES TERMINATED BY '\r\n'
+	#INTO OUTFILE 'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\totalSalesPrevMonthReport.csv'
+	#FIELDS ENCLOSED BY '"'
+	#TERMINATED BY ';'
+	#ESCAPED BY '"'
+	#LINES TERMINATED BY '\r\n'
 	FROM
 		SALE
 			JOIN
@@ -426,11 +426,11 @@ BEGIN
 		Customer.Last_Name AS 'Last Name',
 		Customer.First_Name AS 'First Name',
 		SUM(BOOK.Selling_Price * SALE.No_of_Copies) AS 'Total Purchase Amount'
-	INTO OUTFILE 'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\topFiveCustomersReport.csv'
-	FIELDS ENCLOSED BY '"'
-	TERMINATED BY ';'
-	ESCAPED BY '"'
-	LINES TERMINATED BY '\r\n'
+	#INTO OUTFILE 'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\topFiveCustomersReport.csv'
+	#FIELDS ENCLOSED BY '"'
+	#TERMINATED BY ';'
+	#ESCAPED BY '"'
+	#LINES TERMINATED BY '\r\n'
 	FROM
 		SALE
 			JOIN
@@ -452,11 +452,11 @@ BEGIN
 		SALE.ISBN,
 		BOOK.Title,
 		SUM(SALE.No_of_Copies) AS 'Total Sold Copies'
-	INTO OUTFILE 'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\top10BestSellers.csv'
-	FIELDS ENCLOSED BY '"'
-	TERMINATED BY ';'
-	ESCAPED BY '"'
-	LINES TERMINATED BY '\r\n'
+	#INTO OUTFILE 'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\top10BestSellers.csv'
+	#FIELDS ENCLOSED BY '"'
+	#TERMINATED BY ';'
+	#ESCAPED BY '"'
+	#LINES TERMINATED BY '\r\n'
 	FROM
 		SALE
 			JOIN
