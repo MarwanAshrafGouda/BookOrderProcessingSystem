@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class EditUserInfoController {
+public class EditUserController {
     IJDBCConnection dbConn = JDBCConnection.getInstance();
     @FXML
     private Stage stage;

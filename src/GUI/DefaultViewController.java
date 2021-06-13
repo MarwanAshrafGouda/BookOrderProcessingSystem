@@ -58,9 +58,9 @@ public class DefaultViewController {
     }
 
     public void EditUserPassword(ActionEvent event) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("UpdateBook.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("EditUserPassword.fxml"));
         root = loader.load();
-        EditUserInfoController userController = loader.getController();
+        EditUserController userController = loader.getController();
         userController.setView("DefaultView.fxml");
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -69,7 +69,14 @@ public class DefaultViewController {
     }
 
     public void EditUserInfo(ActionEvent event) throws IOException{
-
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("EditUserInfo.fxml"));
+        root = loader.load();
+        EditUserController userController = loader.getController();
+        userController.setView("DefaultView.fxml");
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void LogOut(ActionEvent event) throws IOException {

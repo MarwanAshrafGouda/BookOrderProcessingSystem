@@ -18,16 +18,16 @@
       </Label>
       <Button fx:id="managerOptions3" layoutX="118.0" layoutY="260.0" mnemonicParsing="false" onAction="#showOrderSettings" prefHeight="43.0" prefWidth="95.0" text="Confirm Order" />
       <Button fx:id="managerOptions31" layoutX="118.0" layoutY="334.0" mnemonicParsing="false" onAction="#showUserSettings" prefHeight="43.0" prefWidth="95.0" text="Promote User" />
-      <Button fx:id="managerOptions32" layoutX="310.0" layoutY="176.0" mnemonicParsing="false" onAction="#modifyBook" prefHeight="43.0" prefWidth="95.0" text="Modify Book" />
+      <Button fx:id="managerOptions32" layoutX="240.0" layoutY="171.0" mnemonicParsing="false" onAction="#modifyBook" prefHeight="43.0" prefWidth="95.0" text="Modify Book" />
       <Button fx:id="managerOptions33" layoutX="252.0" layoutY="81.0" mnemonicParsing="false" onAction="#Top10SellingBooks" prefHeight="43.0" prefWidth="138.0" text="Top10 Selling Books" />
       <Button fx:id="managerOptions34" layoutX="118.0" layoutY="81.0" mnemonicParsing="false" onAction="#Top5Customers" prefHeight="43.0" prefWidth="113.0" text="Top 5 Customers" />
       <Button fx:id="managerOptions35" layoutX="406.0" layoutY="81.0" mnemonicParsing="false" onAction="#TotalSales" prefHeight="43.0" prefWidth="95.0" text="Total Sales" />
-      <Button fx:id="managerOptions36" layoutX="184.0" layoutY="176.0" mnemonicParsing="false" onAction="#addBook" prefHeight="43.0" prefWidth="95.0" text="Add Book" />
+      <Button fx:id="managerOptions36" layoutX="118.0" layoutY="171.0" mnemonicParsing="false" onAction="#addBook" prefHeight="43.0" prefWidth="95.0" text="Add Book" />
       <Label layoutX="14.0" layoutY="72.0" text="Reports:" underline="true">
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Label layoutX="14.0" layoutY="163.0" text="Update Books:" underline="true">
+      <Label layoutX="14.0" layoutY="163.0" text="Updates:" underline="true">
          <font>
             <Font size="20.0" />
          </font>
@@ -59,5 +59,6 @@
          </children>
       </Group>
       <ProgressIndicator fx:id="progressInd_reports" layoutX="262.0" layoutY="200.0" prefHeight="92.0" prefWidth="82.0" visible="false" />
+      <Button fx:id="managerOptions321" layoutX="378.0" layoutY="171.0" mnemonicParsing="false" onAction="#modifyBook" prefHeight="43.0" prefWidth="95.0" text="Add Publisher" />
    </children>
 </AnchorPane>

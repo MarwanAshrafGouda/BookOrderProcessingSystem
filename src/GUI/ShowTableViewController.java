@@ -36,6 +36,12 @@ public class ShowTableViewController {
 
     public void initialize(){
         /// TODO: draw table
+        for(int i =0; i< table.size(); i++){
+            for(int j = 0; j< table.get(0).size(); j++){
+                System.out.print(table.get(i).get(j) + " ,");
+            }
+            System.out.println();
+        }
     }
 
 

@@ -53,6 +53,6 @@
          </cursor></Button>
       <TextField fx:id="search_txt" layoutX="199.0" layoutY="277.0" prefHeight="26.0" prefWidth="243.0" />
       <Button layoutX="21.0" layoutY="354.0" mnemonicParsing="false" onAction="#back" text="BACK" />
-      <ProgressIndicator fx:id="progressInd" layoutX="361.0" layoutY="324.0" prefHeight="30.0" prefWidth="38.0" visible="false" />
+      <ProgressIndicator fx:id="progressInd" layoutX="278.0" layoutY="264.0" prefHeight="100.0" prefWidth="118.0" visible="false" />
    </children>
 </AnchorPane>
