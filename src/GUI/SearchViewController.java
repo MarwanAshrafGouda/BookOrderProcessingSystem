@@ -72,8 +72,11 @@ public class SearchViewController {
             resultTable = dbConn.categorySearch(txt);
         }
 
+        System.out.println("IN : SearchViewController ");/// TODO: to be deleted
+        System.out.println("tring to print table from here "); /// TODO: to be deleted
+        System.out.println("rows = "+(((Integer)resultTable.size()).toString()) +"Cols = "+(((Integer)resultTable.get(0).size()).toString()));
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowTableView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("EditUserController.fxml"));
         root = loader.load();
         loader.setController(new ShowTableViewController());
         ShowTableViewController userController = loader.getController();

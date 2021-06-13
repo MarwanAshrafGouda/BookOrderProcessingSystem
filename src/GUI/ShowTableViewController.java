@@ -22,8 +22,8 @@ public class ShowTableViewController {
     private Scene scene;
     private Parent root;
     @FXML
-    private Label Title_label = new Label();
-    private TableView tableView = new TableView();
+    private Label Title_label,label_label ;
+    private TableView tableView ;
 
     private String parentView;
     private Vector<Vector<String>> table;
@@ -33,7 +33,7 @@ public class ShowTableViewController {
         parentView = v ;
         table = t;
     }
-
+    @FXML
     public void initialize(){
         /// TODO: draw table
         for(int i =0; i< table.size(); i++){
@@ -42,6 +42,13 @@ public class ShowTableViewController {
             }
             System.out.println();
         }
+    }
+
+    public void turnON(){
+        label_label.setText("ON");
+    }
+    public void turnOFF(){
+        label_label.setText("OFF");
     }
 
 
