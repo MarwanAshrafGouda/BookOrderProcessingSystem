@@ -3,6 +3,9 @@ package Connection;
 import java.sql.*;
 import java.util.Vector;
 
+import jasber.JasberManagerCSV;
+import jasber.JasberManager.Template;
+
 public class JDBCConnection implements IJDBCConnection {
 
     private JDBCConnection() {
@@ -453,6 +456,7 @@ public class JDBCConnection implements IJDBCConnection {
                 CallableStatement statement = conn.prepareCall("{call totalSalesReport()}")
         ) {
             statement.execute();
+            new JasberManagerCSV().generatePDF("resources/totalSalesPrevMonthReport.csv", Template.SALES_REPORT);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -466,6 +470,7 @@ public class JDBCConnection implements IJDBCConnection {
                 CallableStatement statement = conn.prepareCall("{call top5CustomersReport()}")
         ) {
             statement.execute();
+            new JasberManagerCSV().generatePDF("resources/topFiveCustomersReport.csv", Template.TOP_CUSTOMERS);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -479,6 +484,7 @@ public class JDBCConnection implements IJDBCConnection {
                 CallableStatement statement = conn.prepareCall("{call top10SellingBooksReport()}")
         ) {
             statement.execute();
+            new JasberManagerCSV().generatePDF("resources/top10BestSellers.csv", Template.BEST_SELLERS);
         } catch (SQLException e) {
             e.printStackTrace();
         }
