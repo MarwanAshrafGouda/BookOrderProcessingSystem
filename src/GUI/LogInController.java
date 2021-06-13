@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -21,20 +22,21 @@ public class LogInController {
     private Parent root;
 
     @FXML
-    private TextField username_txt , password_txt ,userName_txt, Password_txt, firstName_txt,lastName_txt, emailAddress_txt, phone_txt,  shippingAddress_txt;
-
+    private TextField username_txt  ,userName_txt, firstName_txt,lastName_txt, emailAddress_txt, phone_txt,  shippingAddress_txt;
+    @FXML
+    private PasswordField signUp_Password_txt, logIn_password_txt;
 
     public void logIn(ActionEvent event) throws IOException {
-        dbConn.signIn(username_txt.getText(), password_txt.getText());
-        defaultView(event);
+        dbConn.signIn(username_txt.getText(), logIn_password_txt.getText());
+        changeScene(event, "DefaultView.fxml");
     }
     public void signUp(ActionEvent event) throws IOException {
-        dbConn.signUp(userName_txt.getText(), Password_txt.getText(), firstName_txt.getText(),lastName_txt.getText(), emailAddress_txt.getText(), phone_txt.getText(),  shippingAddress_txt.getText());
-        defaultView(event);
+        dbConn.signUp(userName_txt.getText(), signUp_Password_txt.getText(), firstName_txt.getText(),lastName_txt.getText(), emailAddress_txt.getText(), phone_txt.getText(),  shippingAddress_txt.getText());
+        changeScene(event, "LogIn.fxml");
     }
 
-    private void defaultView(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("DefaultView.fxml"));
+    private void changeScene(ActionEvent event, String strScene) throws IOException {
+        root = FXMLLoader.load(getClass().getResource(strScene));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

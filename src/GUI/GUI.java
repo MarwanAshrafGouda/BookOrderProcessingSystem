@@ -8,7 +8,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import Connection.IJDBCConnection;
 
 public class GUI extends Application {
 
@@ -22,7 +21,7 @@ public class GUI extends Application {
             primaryStage.setTitle("شبب بيت زعطوط BookStore");
             Image icon = new Image("GUI/logo.jpg");
             primaryStage.getIcons().add(icon);
-            Parent root = FXMLLoader.load(getClass().getResource("LogIn.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("DefaultView.fxml"));
 
             Scene scene = new Scene(root);
 

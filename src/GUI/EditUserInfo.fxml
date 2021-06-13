@@ -16,11 +16,11 @@
       <Button layoutX="508.0" layoutY="328.0" mnemonicParsing="false" onAction="#back" text="BACK" />
       <Label layoutX="162.0" layoutY="199.0" text="E-mail" />
       <Label layoutX="161.0" layoutY="123.0" text="First Name" />
-      <Label layoutX="165.0" layoutY="84.0" text="Password" />
+      <Label layoutX="165.0" layoutY="84.0" text="Username" />
       <Label layoutX="133.0" layoutY="273.0" text="Shipping Address" />
       <Label layoutX="153.0" layoutY="159.0" text="Second Name" />
       <Label layoutX="139.0" layoutY="237.0" text="Phone Number" />
-      <TextField fx:id="editInfo_password_txt" layoutX="237.0" layoutY="80.0" />
+      <TextField fx:id="editInfo_username_txt" layoutX="237.0" layoutY="80.0" />
       <TextField fx:id="editInfo_shippingAddress_txt" layoutX="237.0" layoutY="269.0" />
       <TextField fx:id="editInfo_phoneNumber_txt" layoutX="237.0" layoutY="233.0" />
       <TextField fx:id="editInfo_emailAddress_txt" layoutX="237.0" layoutY="195.0" />
