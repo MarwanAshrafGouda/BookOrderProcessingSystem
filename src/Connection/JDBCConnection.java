@@ -3,8 +3,9 @@ package Connection;
 import java.sql.*;
 import java.util.Vector;
 
+import jasber.JasberManager;
 import jasber.JasberManagerCSV;
-import jasber.JasberManager.Template;
+import jasber.JasberManager.Template;;
 
 public class JDBCConnection implements IJDBCConnection {
 
@@ -14,6 +15,8 @@ public class JDBCConnection implements IJDBCConnection {
     private static JDBCConnection JDBCConnector = null;
     private String username;
     private boolean isManager;
+    private JasberManager jasber = new JasberManagerCSV();
+
 
     public static JDBCConnection getInstance() {
         if (JDBCConnector == null) {
@@ -456,7 +459,7 @@ public class JDBCConnection implements IJDBCConnection {
                 CallableStatement statement = conn.prepareCall("{call totalSalesReport()}")
         ) {
             statement.execute();
-            new JasberManagerCSV().generatePDF("resources/totalSalesPrevMonthReport.csv", Template.SALES_REPORT);
+            jasber.generatePDF("resources/totalSalesPrevMonthReport.csv", Template.SALES_REPORT);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -470,7 +473,7 @@ public class JDBCConnection implements IJDBCConnection {
                 CallableStatement statement = conn.prepareCall("{call top5CustomersReport()}")
         ) {
             statement.execute();
-            new JasberManagerCSV().generatePDF("resources/topFiveCustomersReport.csv", Template.TOP_CUSTOMERS);
+            jasber.generatePDF("resources/topFiveCustomersReport.csv", Template.TOP_CUSTOMERS);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -484,7 +487,7 @@ public class JDBCConnection implements IJDBCConnection {
                 CallableStatement statement = conn.prepareCall("{call top10SellingBooksReport()}")
         ) {
             statement.execute();
-            new JasberManagerCSV().generatePDF("resources/top10BestSellers.csv", Template.BEST_SELLERS);
+            jasber.generatePDF("resources/top10BestSellers.csv", Template.BEST_SELLERS);
         } catch (SQLException e) {
             e.printStackTrace();
         }
