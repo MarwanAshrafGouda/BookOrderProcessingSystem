@@ -1,5 +1,7 @@
 package Connection;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 import java.util.Vector;
 
@@ -37,7 +39,7 @@ public class JDBCConnection implements IJDBCConnection {
 
     private String[] JDBCConnect() {
         {
-            String dbURL = "jdbc:mysql://197.48.45.243:3306/Bookstore?autoReconnect=true&useSSL=false";
+            String dbURL = "jdbc:mysql://197.48.189.140:3306/Bookstore?autoReconnect=true&useSSL=false";
             String user = "wzattout";
             String password = "wzattout_pass";
             return new String[]{dbURL, user, password};
@@ -456,11 +458,23 @@ public class JDBCConnection implements IJDBCConnection {
         String[] databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
-                CallableStatement statement = conn.prepareCall("{call totalSalesReport()}")
+                CallableStatement statement = conn.prepareCall("{call totalSalesPrevMonthReport()}")
         ) {
             statement.execute();
+            FileWriter myWriter = new FileWriter("resources/totalSalesPrevMonthReport.csv");
+            ResultSet resultSet = statement.getResultSet();
+            while (resultSet.next()) {
+                for (int i = 1; i < 9; ++i) {
+                    myWriter.append(resultSet.getString(i));
+                    if (i != 8) {
+                        myWriter.append(",");
+                    }
+                }
+                myWriter.append("\n");
+            }
+            myWriter.close();
             jasber.generatePDF("resources/totalSalesPrevMonthReport.csv", Template.SALES_REPORT);
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -470,11 +484,23 @@ public class JDBCConnection implements IJDBCConnection {
         String[] databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
-                CallableStatement statement = conn.prepareCall("{call top5CustomersReport()}")
+                CallableStatement statement = conn.prepareCall("{call topFiveCustomersReport()}")
         ) {
             statement.execute();
+            FileWriter myWriter = new FileWriter("resources/topFiveCustomersReport.csv");
+            ResultSet resultSet = statement.getResultSet();
+            while (resultSet.next()) {
+                for (int i = 1; i < 5; ++i) {
+                    myWriter.append(resultSet.getString(i));
+                    if (i != 4) {
+                        myWriter.append(",");
+                    }
+                }
+                myWriter.append("\n");
+            }
+            myWriter.close();
             jasber.generatePDF("resources/topFiveCustomersReport.csv", Template.TOP_CUSTOMERS);
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -484,11 +510,23 @@ public class JDBCConnection implements IJDBCConnection {
         String[] databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
-                CallableStatement statement = conn.prepareCall("{call top10SellingBooksReport()}")
+                CallableStatement statement = conn.prepareCall("{call topTenBestSellersReport()}")
         ) {
             statement.execute();
+            FileWriter myWriter = new FileWriter("resources/top10BestSellers.csv");
+            ResultSet resultSet = statement.getResultSet();
+            while (resultSet.next()) {
+                for (int i = 1; i < 4; ++i) {
+                    myWriter.append(resultSet.getString(i));
+                    if (i != 3) {
+                        myWriter.append(",");
+                    }
+                }
+                myWriter.append("\n");
+            }
+            myWriter.close();
             jasber.generatePDF("resources/top10BestSellers.csv", Template.BEST_SELLERS);
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
     }
