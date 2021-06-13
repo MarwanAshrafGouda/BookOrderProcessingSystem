@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Vector;
 
 
 public class SearchViewController {
@@ -23,11 +24,11 @@ public class SearchViewController {
     private Scene scene;
     private Parent root;
 
+    Vector<Vector<String>> resultTable;
+
     //SearchView Attributes
     @FXML
     private TextField search_txt;
-    @FXML
-    private Button search_btn;
     @FXML
     private Label search_label;
     @FXML
@@ -57,24 +58,32 @@ public class SearchViewController {
         search_label.setAlignment(Pos.CENTER);
     }
 
-    public void searchDB() {
+    public void searchDB(ActionEvent event) throws IOException {
         progressInd.setVisible(true);
 
         String txt = search_txt.getText();
 
         if(searchBy.equals("ISBN")) {
-            dbConn.ISBNSearch(Integer.parseInt(txt));
-        }
-        else if(searchBy.equals("Title")) {
-            dbConn.titleSearch(txt);
-        }
-        else if(searchBy.equals("Author")) {
-            dbConn.authorSearch(txt);
+            resultTable = dbConn.ISBNSearch(Integer.parseInt(txt));
+        }else if(searchBy.equals("Title")) {
+            resultTable = dbConn.titleSearch(txt);
+        }else if(searchBy.equals("Author")) {
+            resultTable = dbConn.authorSearch(txt);
         }else if(searchBy.equals("Publisher")){
-            dbConn.publisherSearch(txt);
+            resultTable = dbConn.publisherSearch(txt);
         }else if(searchBy.equals("Category")){
-            dbConn.categorySearch(txt);
+            resultTable = dbConn.categorySearch(txt);
         }
+
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowTableView.fxml"));
+        root = loader.load();
+        ShowTableViewController userController = loader.getController();
+        userController.initializeView(resultTable, "Search Using "+ txt, "SearchView.fxml");
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
 
         progressInd.setVisible(false);
     }

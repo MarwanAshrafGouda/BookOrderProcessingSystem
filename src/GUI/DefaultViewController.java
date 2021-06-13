@@ -1,4 +1,99 @@
 package GUI;
 
+import Connection.IJDBCConnection;
+import Connection.JDBCConnection;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
 public class DefaultViewController {
+
+    IJDBCConnection dbConn = JDBCConnection.getInstance();
+    @FXML
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+    @FXML
+    private TextField addToCart_ISBN_txt,addToCart_copies_txt, removeFromCart_ISBN_txt;
+    @FXML
+    private Button managerOptions;
+    public void initialize(){
+        if(dbConn.getIsManager()){
+            managerOptions.setDisable(false);
+        }else{
+            managerOptions.setDisable(true);
+        }
+    }
+
+    public void AddToCart(){
+        dbConn.addToCart(Integer.parseInt(addToCart_ISBN_txt.getText()), Integer.parseInt(addToCart_copies_txt.getText()));
+    }
+
+    public void RemoveFromCart(){
+        dbConn.removeFromCart(Integer.parseInt(removeFromCart_ISBN_txt.getText()));
+    }
+
+    public void ViewCart(ActionEvent event) throws IOException{
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowTableView.fxml"));
+        root = loader.load();
+        ShowTableViewController userController = loader.getController();
+        userController.initializeView(dbConn.viewCart(), "CART", "DefaultView.fxml");
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void Checkout(){
+        dbConn.checkOut();
+    }
+
+    public void EditUserPassword(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("UpdateBook.fxml"));
+        root = loader.load();
+        EditUserInfoController userController = loader.getController();
+        userController.setView("DefaultView.fxml");
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void EditUserInfo(ActionEvent event) throws IOException{
+
+    }
+
+    public void LogOut(ActionEvent event) throws IOException {
+        dbConn.logOut();
+        root = FXMLLoader.load(getClass().getResource("LogIn.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void searchV(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("SearchView.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void managerV(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("ManagerView.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 }

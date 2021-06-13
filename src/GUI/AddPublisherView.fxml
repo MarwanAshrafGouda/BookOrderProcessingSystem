@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ManagerViewController">
+   <children>
+      <Label layoutX="167.0" layoutY="35.0" text="Add Publisher">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <Label layoutX="153.0" layoutY="113.0" text="Name" />
+      <Label layoutX="147.0" layoutY="167.0" text="Address" />
+      <Label layoutX="129.0" layoutY="218.0" text="Phone number" />
+      <TextField fx:id="publisher_name_txt" layoutX="226.0" layoutY="109.0" />
+      <TextField fx:id="publisher_address_txt" layoutX="225.0" layoutY="163.0" prefHeight="26.0" prefWidth="229.0" />
+      <TextField fx:id="publisher_phoneNumber_txt" layoutX="226.0" layoutY="214.0" />
+      <Button layoutX="225.0" layoutY="262.0" mnemonicParsing="false" onAction="#AddPublisher" text="ADD">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Button>
+      <Button layoutX="482.0" layoutY="337.0" mnemonicParsing="false" onAction="#back" text="BACK" />
+   </children>
+</AnchorPane>
