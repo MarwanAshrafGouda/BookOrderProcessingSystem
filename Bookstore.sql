@@ -1,14 +1,14 @@
-CREATE SCHEMA IF NOT EXISTS BOOKSTORE;
+create SCHEMA IF NOT EXISTS BOOKSTORE;
 
 USE BOOKSTORE;
 
-CREATE TABLE IF NOT EXISTS PUBLISHER (
+create TABLE IF NOT EXISTS PUBLISHER (
     Name VARCHAR(50) UNIQUE NOT NULL PRIMARY KEY,
     Address VARCHAR(100),
     Phone_Number VARCHAR(20) UNIQUE
 );
 
-CREATE TABLE IF NOT EXISTS BOOK (
+create TABLE IF NOT EXISTS BOOK (
     ISBN INT UNIQUE NOT NULL PRIMARY KEY,
     Title VARCHAR(100) UNIQUE NOT NULL,
     Publisher_Name VARCHAR(50) NOT NULL,
@@ -25,24 +25,24 @@ CREATE TABLE IF NOT EXISTS BOOK (
         OR Category = 'Geography')
 );
 
-CREATE TABLE IF NOT EXISTS AUTHOR (
+create TABLE IF NOT EXISTS AUTHOR (
     Name VARCHAR(50) NOT NULL,
     ISBN INT NOT NULL,
     FOREIGN KEY (ISBN)
-        REFERENCES BOOK (ISBN) ON UPDATE CASCADE,
+        REFERENCES BOOK (ISBN) ON update CASCADE,
     PRIMARY KEY (Name , ISBN) 
 );
 
 
-CREATE TABLE IF NOT EXISTS BOOK_ORDER (
+create TABLE IF NOT EXISTS BOOK_ORDER (
     Order_No INT AUTO_INCREMENT UNIQUE NOT NULL PRIMARY KEY,
     ISBN INT UNIQUE NOT NULL,
     Quantity INT NOT NULL DEFAULT 100,
     FOREIGN KEY (ISBN)
-        REFERENCES BOOK (ISBN) ON UPDATE CASCADE
+        REFERENCES BOOK (ISBN) ON update CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS CUSTOMER (
+create TABLE IF NOT EXISTS CUSTOMER (
     User_Name VARCHAR(25) UNIQUE NOT NULL PRIMARY KEY,
     Password VARCHAR(16) NOT NULL,
     Password VARCHAR(16) NOT NULL,
@@ -54,75 +54,75 @@ CREATE TABLE IF NOT EXISTS CUSTOMER (
     Is_Manager BOOLEAN NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS SHOPPING_CART (
+create TABLE IF NOT EXISTS SHOPPING_CART (
     User_Name VARCHAR(25) NOT NULL,
     ISBN INT NOT NULL,
     No_of_Copies INT DEFAULT 1,
     PRIMARY KEY (User_Name , ISBN),
     FOREIGN KEY (User_Name)
-        REFERENCES CUSTOMER (User_Name) ON UPDATE CASCADE,
+        REFERENCES CUSTOMER (User_Name) ON update CASCADE,
     FOREIGN KEY (ISBN)
-        REFERENCES BOOK (ISBN) ON UPDATE CASCADE
+        REFERENCES BOOK (ISBN) ON update CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS SALE (
+create TABLE IF NOT EXISTS SALE (
     Sale_ID INT AUTO_INCREMENT UNIQUE NOT NULL PRIMARY KEY,
     User_Name VARCHAR(25) NOT NULL,
     ISBN INT NOT NULL,
     No_of_Copies INT DEFAULT 1,
     Date DATE NOT NULL,
     FOREIGN KEY (User_Name)
-        REFERENCES CUSTOMER (User_Name) ON UPDATE CASCADE,
+        REFERENCES CUSTOMER (User_Name) ON update CASCADE,
     FOREIGN KEY (ISBN)
-        REFERENCES BOOK (ISBN) ON UPDATE CASCADE
+        REFERENCES BOOK (ISBN) ON update CASCADE
 );
 
-CREATE INDEX ISBN_Index
+create INDEX ISBN_Index
 ON BOOK (ISBN);
 
-CREATE INDEX Title_Index
+create INDEX Title_Index
 ON BOOK (Title);
 
-CREATE INDEX Category_Index
+create INDEX Category_Index
 ON BOOK (Category);
 
 DELIMITER $$
-CREATE 
-    TRIGGER Place_Order
- AFTER UPDATE ON BOOK FOR EACH ROW
-    BEGIN 
-		IF (OLD.No_of_Copies >= OLD.Threshold AND NEW.No_of_Copies < NEW.Threshold) THEN
-			INSERT INTO BOOK_ORDER (ISBN) VALUES (OLD.ISBN);
-		END IF;
+create
+    trigger Place_Order
+ after update on BOOK for each row
+    begin
+		if (OLD.No_of_Copies >= OLD.Threshold and NEW.No_of_Copies < NEW.Threshold) then
+			insert into BOOK_ORDER (ISBN) values (OLD.ISBN);
+		end if;
     END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE 
-    TRIGGER  Confirm_Order
- BEFORE DELETE ON BOOK_ORDER FOR EACH ROW 
-	 BEGIN
-		 UPDATE BOOK
-		 SET 
+create
+    trigger  Confirm_Order
+ before delete on BOOK_ORDER for each row
+	 begin
+		 update BOOK
+		 set
 			No_of_Copies = No_of_Copies + OLD.Quantity
-		 WHERE 
+		 where
 			ISBN = OLD.ISBN;
-    END $$
+    end $$
 DELIMITER ;
 
 DELIMITER $$
-CREATE 
-    TRIGGER  Non_Zero_Book_Quantity
- BEFORE UPDATE ON BOOK FOR EACH ROW 
-	 BEGIN
-		IF (NEW.No_of_Copies < 0) THEN 
-			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'OUT OF STOCK'; #https://www.mysqltutorial.org/mysql-signal-resignal/
+create
+    trigger  Non_Zero_Book_Quantity
+ before update on BOOK for each row
+	 begin
+		if (NEW.No_of_Copies < 0) then
+			SIGNAL SQLSTATE '45000' set MESSAGE_TEXT = 'OUT OF STOCK'; #https://www.mysqltutorial.org/mysql-signal-resignal/
         END IF;
 	 END $$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE signIn (IN UserName VARCHAR(25), IN Pass VARCHAR(16), OUT IsManager BOOLEAN)
+create procedure signIn (IN UserName VARCHAR(25), IN Pass VARCHAR(16), OUT IsManager BOOLEAN)
 BEGIN
    IF NOT EXISTS (SELECT 
 						*
@@ -142,21 +142,21 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE signUp (IN UserName VARCHAR(25), IN Pass VARCHAR(16), IN FnameP VARCHAR(25), IN LnameP VARCHAR(25), IN Email VARCHAR(100), IN PhoneNo VARCHAR(20), IN ShipAdd VARCHAR(100))
+create procedure signUp (IN UserName VARCHAR(25), IN Pass VARCHAR(16), IN FnameP VARCHAR(25), IN LnameP VARCHAR(25), IN Email VARCHAR(100), IN PhoneNo VARCHAR(20), IN ShipAdd VARCHAR(100))
 BEGIN
     INSERT INTO CUSTOMER VALUES (UserName, Pass, FnameP, LnameP, Email, PhoneNo, ShipAdd, 0);
 END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE addPublisher (IN Name VARCHAR(50), IN Address VARCHAR(100), IN PhoneNo VARCHAR(20))
+create procedure addPublisher (IN Name VARCHAR(50), IN Address VARCHAR(100), IN PhoneNo VARCHAR(20))
 BEGIN
     INSERT INTO PUBLISHER VALUES (Name, Address, PhoneNo);
 END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE addBook (IN ISBN INT, IN Title VARCHAR(100), IN PubName VARCHAR(50), IN Category VARCHAR(10), IN Price DECIMAL(6,2), IN PubYear YEAR, IN Threshold INT)
+create procedure addBook (IN ISBN INT, IN Title VARCHAR(100), IN PubName VARCHAR(50), IN Category VARCHAR(10), IN Price DECIMAL(6,2), IN PubYear YEAR, IN Threshold INT)
 BEGIN
     INSERT INTO BOOK (ISBN, Title, Publisher_Name, Category, Selling_Price, Publication_Year, Threshold) VALUES (ISBN, Title, PubName, Category, Price, PubYear, Threshold);
     INSERT INTO BOOK_ORDER (ISBN) VALUES (ISBN);
@@ -164,14 +164,14 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE addAuthor (IN ISBN INT, IN Name VARCHAR(50))
+create procedure addAuthor (IN ISBN INT, IN Name VARCHAR(50))
 BEGIN
     INSERT INTO AUTHOR VALUES (Name, ISBN);
 END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE removeAuthors (IN ISBNP INT)
+create procedure removeAuthors (IN ISBNP INT)
 BEGIN
 	DELETE FROM AUTHOR 
 	WHERE
@@ -180,7 +180,7 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE modifyBook (IN ISBNP INT, IN NewISBN INT, IN TitleP VARCHAR(100), IN PubName VARCHAR(50), IN CategoryP VARCHAR(10), IN Price DECIMAL(6,2), IN PubYear YEAR, IN ThresholdP INT)
+create procedure modifyBook (IN ISBNP INT, IN NewISBN INT, IN TitleP VARCHAR(100), IN PubName VARCHAR(50), IN CategoryP VARCHAR(10), IN Price DECIMAL(6,2), IN PubYear YEAR, IN ThresholdP INT)
 BEGIN
 	UPDATE BOOK 
 	SET 
@@ -197,7 +197,7 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE confirmOrder (IN OrderNo INT)
+create procedure confirmOrder (IN OrderNo INT)
 BEGIN
 	DELETE FROM BOOK_ORDER 
 	WHERE
@@ -206,7 +206,7 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE searchByISBN (IN targetISBN INT)
+create procedure searchByISBN (IN targetISBN INT)
 BEGIN
 	SELECT 
 		ISBN,
@@ -224,7 +224,7 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE searchByTitle (IN targetTitle VARCHAR(100))
+create procedure searchByTitle (IN targetTitle VARCHAR(100))
 BEGIN
 	SELECT 
 		ISBN,
@@ -242,7 +242,7 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE searchByCategory (IN targetCategory VARCHAR(10))
+create procedure searchByCategory (IN targetCategory VARCHAR(10))
 BEGIN
 	SELECT 
 		ISBN,
@@ -260,7 +260,7 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE searchByPublisher (IN targetPublisher VARCHAR(50))
+create procedure searchByPublisher (IN targetPublisher VARCHAR(50))
 BEGIN
 	SELECT 
 		ISBN,
@@ -278,7 +278,7 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE searchByAuthor (IN targetAuthor VARCHAR(10))
+create procedure searchByAuthor (IN targetAuthor VARCHAR(10))
 BEGIN
 	SELECT 
 		ISBN,
@@ -299,7 +299,7 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE editUserInfo (IN Username VARCHAR(25), IN  NewUsername VARCHAR(25), IN FName VARCHAR(25), LName VARCHAR(25), Email VARCHAR(100), PhoneNo VARCHAR(20), ShipAdd VARCHAR(100))
+create procedure editUserInfo (IN Username VARCHAR(25), IN  NewUsername VARCHAR(25), IN FName VARCHAR(25), LName VARCHAR(25), Email VARCHAR(100), PhoneNo VARCHAR(20), ShipAdd VARCHAR(100))
 BEGIN
 	UPDATE CUSTOMER 
 	SET 
@@ -315,7 +315,7 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE editUserPassword (IN Username VARCHAR(25), IN Pass VARCHAR(16), IN NewPass VARCHAR(16))
+create procedure editUserPassword (IN Username VARCHAR(25), IN Pass VARCHAR(16), IN NewPass VARCHAR(16))
 BEGIN
 	IF NOT EXISTS (SELECT 
 						*
@@ -330,14 +330,14 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE addToCart (IN Username VARCHAR(25), IN ISBNP INT, IN Copies INT)
+create procedure addToCart (IN Username VARCHAR(25), IN ISBNP INT, IN Copies INT)
 BEGIN
 	INSERT INTO SHOPPING_CART VALUES (Username, ISBNP, Copies);
 END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE viewCart (IN Username VARCHAR(25))
+create procedure viewCart (IN Username VARCHAR(25))
 BEGIN
 	SELECT 
 		BOOK.ISBN,
@@ -358,14 +358,14 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE removeFromCart (IN Username VARCHAR(25), IN ISBNP INT)
+create procedure removeFromCart (IN Username VARCHAR(25), IN ISBNP INT)
 BEGIN
 	DELETE FROM SHOPPING_CART WHERE User_Name = Username AND ISBN = ISBNP;
 END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE checkout (IN Username VARCHAR(25))
+create procedure checkout (IN Username VARCHAR(25))
 BEGIN
 	SAVEPOINT sp1;
 	 INSERT INTO SALE (User_Name, ISBN, No_of_Copies, Date) SELECT 
@@ -380,21 +380,21 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE logout (IN Username VARCHAR(25))
+create procedure logout (IN Username VARCHAR(25))
 BEGIN
     DELETE FROM SHOPPING_CART;
 END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE promote (IN Username VARCHAR(25))
+create procedure promote (IN Username VARCHAR(25))
 BEGIN
     UPDATE CUSTOMER SET Is_Manager = 1 WHERE User_Name = Username;
 END$$
 DELIMITER ; 
 
 DELIMITER $$
-CREATE PROCEDURE totalSalesPrevMonthReport ()
+create procedure totalSalesPrevMonthReport ()
 BEGIN
 	SELECT 
 		Sale_ID AS 'Sale ID',
@@ -415,7 +415,7 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE topFiveCustomersReport ()
+create procedure topFiveCustomersReport ()
 BEGIN
    SELECT 
 		SALE.User_Name AS 'Username',
@@ -437,7 +437,7 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE topTenBestSellersReport ()
+create procedure topTenBestSellersReport ()
 BEGIN
 	SELECT 
 		SALE.ISBN,
