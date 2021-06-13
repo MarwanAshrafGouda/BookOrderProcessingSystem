@@ -1,6 +1,5 @@
 package Connection;
 
-import java.sql.*;
 import java.util.Vector;
 
 public interface IJDBCConnection {

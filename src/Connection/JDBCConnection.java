@@ -5,7 +5,7 @@ import java.util.Vector;
 
 import jasber.JasberManager;
 import jasber.JasberManagerCSV;
-import jasber.JasberManager.Template;;
+import jasber.JasberManager.Template;
 
 public class JDBCConnection implements IJDBCConnection {
 
@@ -20,7 +20,7 @@ public class JDBCConnection implements IJDBCConnection {
 
     public static JDBCConnection getInstance() {
         if (JDBCConnector == null) {
-            return new JDBCConnection();
+            JDBCConnector = new JDBCConnection();
         }
         return JDBCConnector;
     }
