@@ -23,8 +23,8 @@
             <Font size="45.0" />
          </font>
       </Label>
-      <TextField id="username_text" layoutX="190.0" layoutY="140.0" prefHeight="26.0" prefWidth="219.0" />
-      <TextField id="password_text" layoutX="190.0" layoutY="192.0" prefHeight="26.0" prefWidth="219.0" />
+      <TextField id="username_text" fx:id="username_txt" layoutX="190.0" layoutY="140.0" prefHeight="26.0" prefWidth="219.0" />
+      <TextField id="password_text" fx:id="password_txt" layoutX="190.0" layoutY="192.0" prefHeight="26.0" prefWidth="219.0" />
       <Label layoutX="162.0" layoutY="294.0" text="Don't have an account?" />
       <Button layoutX="223.0" layoutY="255.0" mnemonicParsing="false" onAction="#logIn" prefHeight="26.0" prefWidth="125.0" text="LOG IN" />
       <Label layoutX="300.0" layoutY="294.0" text="Sign Up" textAlignment="CENTER" textFill="#1c04cf" underline="true" />
