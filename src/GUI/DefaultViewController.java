@@ -81,23 +81,19 @@ public class DefaultViewController {
 
     public void LogOut(ActionEvent event) throws IOException {
         dbConn.logOut();
-        root = FXMLLoader.load(getClass().getResource("LogIn.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        changeScene(event, "LogIn.fxml");
     }
 
     public void searchV(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("SearchView.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        changeScene(event, "SearchView.fxml");
     }
 
     public void managerV(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("ManagerView.fxml"));
+        changeScene(event, "ManagerView.fxml");
+    }
+
+    public void changeScene(ActionEvent event, String strScene)throws IOException {
+        root = FXMLLoader.load(getClass().getResource(strScene));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
