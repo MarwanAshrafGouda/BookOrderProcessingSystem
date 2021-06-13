@@ -22,8 +22,8 @@ public class ShowTableViewController {
     private Scene scene;
     private Parent root;
     @FXML
-    private Label Title_label;
-    private TableView tableView;
+    private Label Title_label = new Label();
+    private TableView tableView = new TableView();
 
     private String parentView;
     private Vector<Vector<String>> table;

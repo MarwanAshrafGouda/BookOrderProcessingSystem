@@ -21,7 +21,7 @@ public class GUI extends Application {
             primaryStage.setTitle("شبب بيت زعطوط BookStore");
             Image icon = new Image("GUI/logo.jpg");
             primaryStage.getIcons().add(icon);
-            Parent root = FXMLLoader.load(getClass().getResource("DefaultView.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("LogIn.fxml"));
 
             Scene scene = new Scene(root);
 

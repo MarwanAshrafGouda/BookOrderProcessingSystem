@@ -37,24 +37,21 @@ public class SearchViewController {
     ProgressIndicator progressInd;
 
     private String searchBy;
+
     //SearchView Methods
     public void searchMethod() {
-        if(ISBN_rbtn.isSelected()) {
+        if (ISBN_rbtn.isSelected()) {
             searchBy = ISBN_rbtn.getText();
-        }
-        else if(Title_rbtn.isSelected()) {
-            searchBy =Title_rbtn.getText();
-        }
-        else if(Author_rbtn.isSelected()) {
-            searchBy =Author_rbtn.getText();
-        }
-        else if(Publisher_rbtn.isSelected()) {
-            searchBy =Publisher_rbtn.getText();
-        }
-        else if(Category_rbtn.isSelected()) {
+        } else if (Title_rbtn.isSelected()) {
+            searchBy = Title_rbtn.getText();
+        } else if (Author_rbtn.isSelected()) {
+            searchBy = Author_rbtn.getText();
+        } else if (Publisher_rbtn.isSelected()) {
+            searchBy = Publisher_rbtn.getText();
+        } else if (Category_rbtn.isSelected()) {
             searchBy = Category_rbtn.getText();
         }
-        search_label.setText("Enter "+searchBy);
+        search_label.setText("Enter " + searchBy);
         search_label.setAlignment(Pos.CENTER);
     }
 
@@ -63,34 +60,35 @@ public class SearchViewController {
 
         String txt = search_txt.getText();
 
-        if(searchBy.equals("ISBN")) {
+        if (searchBy.equals("ISBN")) {
             resultTable = dbConn.ISBNSearch(Integer.parseInt(txt));
-        }else if(searchBy.equals("Title")) {
+        } else if (searchBy.equals("Title")) {
             resultTable = dbConn.titleSearch(txt);
-        }else if(searchBy.equals("Author")) {
+        } else if (searchBy.equals("Author")) {
             resultTable = dbConn.authorSearch(txt);
-        }else if(searchBy.equals("Publisher")){
+        } else if (searchBy.equals("Publisher")) {
             resultTable = dbConn.publisherSearch(txt);
-        }else if(searchBy.equals("Category")){
+        } else if (searchBy.equals("Category")) {
             resultTable = dbConn.categorySearch(txt);
         }
 
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowTableView.fxml"));
         root = loader.load();
+        loader.setController(new ShowTableViewController());
         ShowTableViewController userController = loader.getController();
-        userController.initializeView(resultTable, "Search Using "+ txt, "SearchView.fxml");
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        userController.initializeView(resultTable, "Search Using " + txt, "SearchView.fxml");
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
         progressInd.setVisible(false);
+
     }
 
     public void back(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("DefaultView.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
