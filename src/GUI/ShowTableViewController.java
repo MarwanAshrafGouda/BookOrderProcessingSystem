@@ -22,8 +22,8 @@ public class ShowTableViewController {
     private Scene scene;
     private Parent root;
     @FXML
-    private Label Title_label,label_label ;
-    private TableView tableView ;
+    private Label Title_label = new Label(),label_label = new Label();
+    private TableView tableView = new TableView();
 
     private String parentView;
     private Vector<Vector<String>> table;
@@ -36,12 +36,12 @@ public class ShowTableViewController {
     @FXML
     public void initialize(){
         /// TODO: draw table
-        for(int i =0; i< table.size(); i++){
-            for(int j = 0; j< table.get(0).size(); j++){
-                System.out.print(table.get(i).get(j) + " ,");
-            }
-            System.out.println();
-        }
+//        for(int i =0; i< table.size(); i++){
+//            for(int j = 0; j< table.get(0).size(); j++){
+//                System.out.print(table.get(i).get(j) + " ,");
+//            }
+//            System.out.println();
+//        }
     }
 
     public void turnON(){
