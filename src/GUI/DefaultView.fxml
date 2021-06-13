@@ -11,32 +11,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.DefaultViewController">
    <children>
-      <Label layoutX="24.0" layoutY="22.0" prefHeight="29.0" prefWidth="100.0" text="Cart:">
-         <font>
-            <Font size="43.0" />
-         </font>
-      </Label>
-      <MenuBar layoutX="525.0" layoutY="1.0" prefHeight="26.0" prefWidth="74.0">
-        <menus>
-            <Menu mnemonicParsing="false" text="Options">
-               <items>
-                <Menu mnemonicParsing="false" text="Edit User">
-                  <items>
-                    <MenuItem mnemonicParsing="false" onAction="#EditUserInfo" text="Edit Info" />
-                        <MenuItem mnemonicParsing="false" onAction="#EditUserPassword" text="Edit Password" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                  </items>
-                </Menu>
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#LogOut" text="Logout" />
-               </items>
-            </Menu>
-        </menus>
-      </MenuBar>
-      <Button layoutX="118.0" layoutY="160.0" mnemonicParsing="false" onAction="#AddToCart" prefHeight="26.0" prefWidth="106.0" text="Add to Cart" />
       <Button layoutX="111.0" layoutY="252.0" mnemonicParsing="false" onAction="#RemoveFromCart" text="Remove from Cart" />
       <Button layoutX="399.0" layoutY="110.0" mnemonicParsing="false" onAction="#ViewCart" prefHeight="26.0" prefWidth="113.0" text="View Cart" />
       <Button layoutX="399.0" layoutY="160.0" mnemonicParsing="false" onAction="#Checkout" prefHeight="26.0" prefWidth="113.0" text="Checkout" />
@@ -45,7 +21,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="managerOptions" disable="true" layoutX="377.0" layoutY="313.0" mnemonicParsing="false" onAction="#managerV" prefHeight="50.0" prefWidth="114.0" text="Manager Options" />
+      <Button fx:id="managerOptions" layoutX="260.0" layoutY="314.0" mnemonicParsing="false" onAction="#managerV" prefHeight="50.0" prefWidth="114.0" text="Manager Options" />
       <TextField fx:id="removeFromCart_ISBN_txt" layoutX="139.0" layoutY="215.0" />
       <TextField fx:id="addToCart_copies_txt" layoutX="154.0" layoutY="123.0" />
       <TextField fx:id="addToCart_ISBN_txt" layoutX="154.0" layoutY="90.0" />
@@ -66,5 +42,23 @@
          </font>
       </Label>
       <Separator layoutX="71.0" layoutY="200.0" prefHeight="2.0" prefWidth="246.0" />
+      <Button layoutX="118.0" layoutY="160.0" mnemonicParsing="false" onAction="#AddToCart" prefHeight="26.0" prefWidth="106.0" text="Add to Cart" />
+      <Label layoutX="24.0" layoutY="22.0" prefHeight="29.0" prefWidth="100.0" text="Cart:">
+         <font>
+            <Font size="43.0" />
+         </font>
+      </Label>
+      <MenuBar layoutX="525.0" layoutY="1.0" prefHeight="26.0" prefWidth="74.0">
+        <menus>
+            <Menu mnemonicParsing="false" text="Options">
+               <items>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#LogOut" text="Logout" />
+               </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+      <Button layoutX="481.0" layoutY="301.0" mnemonicParsing="false" onAction="#EditUserInfo" text="Edit User Info" />
+      <Button layoutX="454.0" layoutY="339.0" mnemonicParsing="false" onAction="#EditUserPassword" text="Edit User Password" />
    </children>
 </AnchorPane>
