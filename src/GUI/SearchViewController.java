@@ -17,7 +17,7 @@ import java.io.IOException;
 
 
 public class SearchViewController {
-    IJDBCConnection dbConn = new JDBCConnection();
+    IJDBCConnection dbConn = JDBCConnection.getInstance();
     @FXML
     private Stage stage;
     private Scene scene;

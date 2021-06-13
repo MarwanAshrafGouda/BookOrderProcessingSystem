@@ -19,7 +19,7 @@ public class ManagerViewController {
 
 
 
-    IJDBCConnection dbConn = new JDBCConnection();
+    IJDBCConnection dbConn = JDBCConnection.getInstance();
     @FXML
     private Stage stage;
     private Scene scene;
@@ -41,16 +41,25 @@ public class ManagerViewController {
 
 // REPORTS:
     public void Top5Customers() {
+        orders_group.setVisible(false);
+        users_group.setVisible(false);
+
         progressInd_reports.setVisible(true);
         dbConn.top5CustomersReport();
         progressInd_reports.setVisible(false);
     }
     public void Top10SellingBooks() {
+        orders_group.setVisible(false);
+        users_group.setVisible(false);
+
         progressInd_reports.setVisible(true);
         dbConn.top10SellingBooksReport();
         progressInd_reports.setVisible(false);
     }
     public void TotalSales() {
+        orders_group.setVisible(false);
+        users_group.setVisible(false);
+
         progressInd_reports.setVisible(true);
         dbConn.totalSalesReport();
         progressInd_reports.setVisible(false);
@@ -73,18 +82,25 @@ public class ManagerViewController {
         stage.show();
     }
 
-
 //ORDERS:
         public void showOrderSettings(){
             orders_group.setVisible(true);
+            users_group.setVisible(false);
         }
 
+        public void confirmOrder(){
+            dbConn.confirmOrder(Integer.parseInt(username_txt.getText()));
+        }
 
 // USERS:
         public void showUserSettings(){
-            orders_group.setVisible(true);
+            orders_group.setVisible(false);
+            users_group.setVisible(true);
         }
 
+        public void promoteUser(){
+            dbConn.promoteUser(username_txt.getText());
+        }
 
 //back
     public void back(ActionEvent event) throws IOException {

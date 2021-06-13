@@ -49,13 +49,13 @@
       <Group fx:id="orders_group" layoutX="246.0" layoutY="269.0" visible="false">
          <children>
             <TextField fx:id="orderNumber_txt" text="Order Number...." />
-            <Button layoutX="160.0" mnemonicParsing="false" text="CONFIRM" />
+            <Button layoutX="160.0" mnemonicParsing="false" onAction="#confirmOrder" text="CONFIRM" />
          </children>
       </Group>
       <Group fx:id="users_group" layoutX="252.0" layoutY="343.0" visible="false">
          <children>
             <TextField fx:id="username_txt" text="username....." />
-            <Button layoutX="160.0" mnemonicParsing="false" onDragDetected="#promoteUser" text="PROMOTE" />
+            <Button layoutX="160.0" mnemonicParsing="false" onAction="#promoteUser" text="PROMOTE" />
          </children>
       </Group>
       <ProgressIndicator fx:id="progressInd_reports" layoutX="262.0" layoutY="200.0" prefHeight="92.0" prefWidth="82.0" visible="false" />

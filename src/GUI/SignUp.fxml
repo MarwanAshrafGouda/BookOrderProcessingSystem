@@ -24,7 +24,7 @@
       <Label layoutX="327.0" layoutY="141.0" text="Password" underline="true" />
       <Label layoutX="33.0" layoutY="215.0" text="E-mai address" underline="true" />
       <TextField id="username_text" fx:id="userName_txt" layoutX="121.0" layoutY="133.0" prefHeight="26.0" prefWidth="191.0" />
-      <TextField id="password_text" fx:id="password_txt" layoutX="388.0" layoutY="133.0" />
+      <TextField id="password_text" fx:id="Password_txt" layoutX="388.0" layoutY="133.0" />
       <TextField id="firstName_text" fx:id="firstName_txt" layoutX="121.0" layoutY="169.0" prefHeight="26.0" prefWidth="191.0" />
       <TextField id="email_text" fx:id="emailAddress_txt" layoutX="121.0" layoutY="211.0" prefHeight="26.0" prefWidth="273.0" />
       <TextField id="lastName_text" fx:id="lastName_txt" layoutX="388.0" layoutY="169.0" prefHeight="26.0" prefWidth="150.0" />
