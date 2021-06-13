@@ -1,3 +1,5 @@
+package Connection;
+
 import java.sql.*;
 import java.util.Vector;
 
@@ -480,10 +482,5 @@ public class JDBCConnection implements IJDBCConnection {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        IJDBCConnection a = new JDBCConnection();
-        a.confirmOrder(8);
     }
 }
