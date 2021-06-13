@@ -48,6 +48,7 @@ public class ManagerViewController {
         dbConn.top5CustomersReport();
         progressInd_reports.setVisible(false);
     }
+
     public void Top10SellingBooks() {
         orders_group.setVisible(false);
         users_group.setVisible(false);
@@ -56,6 +57,7 @@ public class ManagerViewController {
         dbConn.top10SellingBooksReport();
         progressInd_reports.setVisible(false);
     }
+
     public void TotalSales() {
         orders_group.setVisible(false);
         users_group.setVisible(false);
@@ -64,6 +66,7 @@ public class ManagerViewController {
         dbConn.totalSalesReport();
         progressInd_reports.setVisible(false);
     }
+
 // UPDATE BOOKS
     public void addBook(ActionEvent event) throws IOException {
         updateBook(event , true);
@@ -87,6 +90,9 @@ public class ManagerViewController {
     public void AddPublisher(ActionEvent event) throws IOException {
         dbConn.addPublisher(publisher_name_txt.getText(), publisher_address_txt.getText(), publisher_phoneNumber_txt.getText());
     }
+    public void AddPublisherView(ActionEvent event) throws IOException {
+        changeScene(event , "AddPublisherView.fxml");
+    }
 //ORDERS:
         public void showOrderSettings(){
             orders_group.setVisible(true);
@@ -109,7 +115,13 @@ public class ManagerViewController {
 
 //back
     public void back(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("DefaultView.fxml"));
+        changeScene(event , "DefaultView.fxml");
+    }
+    public void backFromPublisher(ActionEvent event) throws IOException {
+        changeScene(event , "ManagerView.fxml");
+    }
+    public void changeScene(ActionEvent event, String strScene) throws IOException {
+        root = FXMLLoader.load(getClass().getResource(strScene));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
