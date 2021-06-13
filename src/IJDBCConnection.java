@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.Vector;
 
 public interface IJDBCConnection {
     //ATTRIBUTES:
@@ -13,28 +14,28 @@ public interface IJDBCConnection {
 
     // SEARCH:
     // has button -> Search view
-    ResultSet ISBNSearch(int ISBN);
+    Vector<Vector<String>> ISBNSearch(int ISBN);
     // has button -> Search view
-    ResultSet titleSearch(String title);
+    Vector<Vector<String>> titleSearch(String title);
     // has button -> Search view
-    ResultSet authorSearch(String author);
+    Vector<Vector<String>> authorSearch(String author);
     // has button -> Search view
-    ResultSet publisherSearch(String publisher);
+    Vector<Vector<String>> publisherSearch(String publisher);
     // has button -> Search view
-    ResultSet categorySearch(String category);
+    Vector<Vector<String>> categorySearch(String category);
 
     // has button -> default view
     void editUserInfo(String password, String firstName, String lastName, String emailAddress, String phoneNumber, String shippingAddress);
 
-    public void editUserPassword(String oldPassword, String newPassword);
+    void editUserPassword(String oldPassword, String newPassword);
 
     //CART:
     // has button -> default view
     void addToCart(int ISBN, int copiesNo);
     // has button -> cart view
-    ResultSet viewCart();
+    Vector<Vector<String>> viewCart();
     // has button -> cart view
-    void removeFromCart(int ISBN, int copiesNo);
+    void removeFromCart(int ISBN);
 
     void checkOut();
 
@@ -44,15 +45,17 @@ public interface IJDBCConnection {
     // has button -> default view
     void confirmOrder(int orderNo);
     //BOOKS: Manager
-    void addBook(int ISBN, String title, String authors, String publisher, int publicationYear, int sellingPrice, String category, int threshold);
+    void addBook(int ISBN, String title, String authors, String publisher, int publicationYear, double sellingPrice, String category, int threshold);
     // manager
-    void modifyBook(int ISBN, String title, String authors, String publisher, int publicationYear, int sellingPrice, String category, int threshold);
+    void addPublisher(String name, String address, String phoneNumber);
+    // manager
+    void modifyBook(int ISBN, int newISBN, String title, String authors, String publisher, int publicationYear, int sellingPrice, String category, int threshold);
     // manager
     void promoteUser(String username);
     // manager
-    ResultSet totalSalesReport();
+    void totalSalesReport();
     // manager
-    ResultSet top5CustomersReport();
+    void top5CustomersReport();
     // manager
-    ResultSet top10SellingBooksReport();
+    void top10SellingBooksReport();
 }
