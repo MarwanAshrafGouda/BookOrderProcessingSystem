@@ -22,7 +22,7 @@ public class ShowTableViewController {
     private Scene scene;
     private Parent root;
     @FXML
-    private Label Title_label = new Label(),label_label = new Label();
+    private Label Title_label = new Label(), label_label = new Label();
     private TableView tableView = new TableView();
 
     private String parentView;
