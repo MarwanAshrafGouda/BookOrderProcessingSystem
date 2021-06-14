@@ -36,6 +36,8 @@ public class Book {
 
         if(author)
             this.Author = tableHeader.get(7);
+        else
+            this.Author = "NULL";
     }
 
     public static String[] attributesNames(boolean author){
