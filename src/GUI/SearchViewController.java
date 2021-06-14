@@ -98,6 +98,9 @@ public class SearchViewController {
 //        stage.setScene(scene);
 //        stage.show();
 //
+
+
+
         searchView_group.setVisible(false);
         resultView_group.setVisible(true);
     }
