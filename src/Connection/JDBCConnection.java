@@ -71,9 +71,9 @@ public class JDBCConnection implements IJDBCConnection {
 
     @Override
     public Boolean signIn(String username, String password) {
-        // returns 0 if a customer and 1 if a manager
+        // returns 0tomer an if a cusd 1 if a manager
         String[] databaseInformation = JDBCConnect();
-        boolean manager = false;
+        boolean logedIn;
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);
                 CallableStatement statement = conn.prepareCall("{call signIn(?, ?, ?)}")
@@ -81,14 +81,15 @@ public class JDBCConnection implements IJDBCConnection {
             statement.setString(1, username);
             statement.setString(2, password);
             statement.execute();
-            manager = statement.getBoolean(3);
+            this.isManager = statement.getBoolean(3);
             this.username = username;
+            logedIn = true;
         } catch (SQLException e) {
             // call mostafa 01274 e.getMessage()
             e.printStackTrace();
+            logedIn = false;
         }
-        this.isManager = manager;
-        return manager;
+        return logedIn;
     }
 
     @Override
@@ -244,7 +245,7 @@ public class JDBCConnection implements IJDBCConnection {
             int i = 0;
             while (r.next()) {
                 result.add(new Vector<>());
-                for (int j = 1; j < 8; ++j) {
+                for (int j = 1; j < 9; ++j) {
                     result.get(i).add(r.getString(j));
                 }
                 ++i;

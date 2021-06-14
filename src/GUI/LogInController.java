@@ -29,8 +29,8 @@ public class LogInController {
     private PasswordField signUp_Password_txt, logIn_password_txt;
 
     public void logIn(ActionEvent event) throws IOException {
-        dbConn.signIn(username_txt.getText(), logIn_password_txt.getText());
-        changeScene(event, "DefaultView.fxml");
+        if(dbConn.signIn(username_txt.getText(), logIn_password_txt.getText()))
+            changeScene(event, "DefaultView.fxml");
     }
     public void signUp(ActionEvent event) throws IOException {
         dbConn.signUp(userName_txt.getText(), signUp_Password_txt.getText(), firstName_txt.getText(),lastName_txt.getText(), emailAddress_txt.getText(), phone_txt.getText(),  shippingAddress_txt.getText());
