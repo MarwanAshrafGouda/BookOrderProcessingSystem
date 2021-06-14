@@ -112,6 +112,7 @@ public class SearchViewController {
         resultTableview.setItems(getBooks(use_author));
         for(String s: Book.attributesNames(use_author)){
             TableColumn<Book,String> col =new TableColumn<>(s);
+            s.replaceAll("\\s","");
             col.setMinWidth(200);
             col.setCellValueFactory(new PropertyValueFactory<>(s));
             resultTableview.getColumns().add(col);

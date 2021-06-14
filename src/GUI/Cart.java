@@ -34,6 +34,10 @@ public class Cart {
         this.Price= tableHeader.get(7);
     }
 
+    public static String[] attributesNames(){
+        return new String[] {"ISBN", "Title", "Category", "Publisher Name",  "Publication Year", "Quantity", "UnitPrice", "Price"};
+    }
+
     public String getISBN() {
         return ISBN;
     }
@@ -98,7 +102,5 @@ public class Cart {
         Price = price;
     }
 
-    public static String[] attributesNames(){
-        return new String[] {"ISBN", "Title", "PublisherName", "Category", "Price", "PublicationYear", "NumberOfCopiesInStock", "UnitPrice"};
-    }
+
 }

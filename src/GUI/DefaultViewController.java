@@ -69,6 +69,7 @@ public class DefaultViewController {
         cartContent.setItems(getCart(resultTable));
         for(String s: Cart.attributesNames()){
             TableColumn<Cart,String> col =new TableColumn<>(s);
+            s.replaceAll("\\s","");
             col.setMinWidth(200);
             col.setCellValueFactory(new PropertyValueFactory<>(s));
             cartContent.getColumns().add(col);

@@ -42,9 +42,9 @@ public class Book {
 
     public static String[] attributesNames(boolean author){
         if(author)
-            return new String[]{"ISBN", "Title", "PublisherName", "Category", "Price", "PublicationYear", "NumberOfCopiesInStock", "Author"};
+            return new String[]{"ISBN", "Title", "Publisher Name", "Category", "Price", "Publication Year", "Number Of Copies In Stock", "Author"};
         else
-            return new String[]{"ISBN", "Title", "PublisherName", "Category", "Price", "PublicationYear", "NumberOfCopiesInStock"};
+            return new String[]{"ISBN", "Title", "Publisher Name", "Category", "Price", "Publication Year", "Number Of Copies In Stock"};
     }
 
     public String getISBN() {
