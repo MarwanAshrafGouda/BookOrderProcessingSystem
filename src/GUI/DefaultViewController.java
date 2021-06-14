@@ -55,11 +55,6 @@ public class DefaultViewController {
     public void ViewCart(ActionEvent event) throws IOException{
         showResult(dbConn.viewCart());
     }
-    public void clearTableView(){
-        for ( int i = 0; i<cartContent.getItems().size(); i++) {
-            cartContent.getItems().clear();
-        }
-    }
 
     private ObservableList<Cart> getCart(Vector<Vector<String>> resultTable){
         ObservableList<Cart> books = FXCollections.observableArrayList();
@@ -70,7 +65,7 @@ public class DefaultViewController {
     }
 
     private void showResult(Vector<Vector<String>> resultTable){
-        clearTableView();
+        cartContent.getColumns().clear();
         cartContent.setItems(getCart(resultTable));
         for(String s: Cart.attributesNames()){
             TableColumn<Cart,String> col =new TableColumn<>(s);

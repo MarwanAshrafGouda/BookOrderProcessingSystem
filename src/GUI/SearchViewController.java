@@ -105,14 +105,10 @@ public class SearchViewController {
         }
         return books;
     }
-    public void clearTableView(){
-        for ( int i = 0; i<resultTableview.getItems().size(); i++) {
-            resultTableview.getItems().clear();
-        }
-    }
+
 
     private void showResult(boolean use_author){
-        clearTableView();
+        resultTableview.getColumns().clear();
         resultTableview.setItems(getBooks(use_author));
         for(String s: Book.attributesNames(use_author)){
             TableColumn<Book,String> col =new TableColumn<>(s);
