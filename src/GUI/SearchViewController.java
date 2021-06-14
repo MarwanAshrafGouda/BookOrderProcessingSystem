@@ -3,6 +3,8 @@ package GUI;
 import Connection.IJDBCConnection;
 import Connection.JDBCConnection;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -42,8 +45,11 @@ public class SearchViewController {
     //resultView Attributes
     @FXML
     private Label result_label;
+    @FXML
+    private TableView resultTableview;
 
     private String searchBy;
+
 
     @FXML
     public void initialize(){
@@ -72,6 +78,7 @@ public class SearchViewController {
         progressInd.setVisible(true);
 
         String txt = search_txt.getText();
+        boolean use_author = false;
 
         if (searchBy.equals("ISBN")) {
             resultTable = dbConn.ISBNSearch(Integer.parseInt(txt));
@@ -79,42 +86,35 @@ public class SearchViewController {
             resultTable = dbConn.titleSearch(txt);
         } else if (searchBy.equals("Author")) {
             resultTable = dbConn.authorSearch(txt);
+            use_author = true;
         } else if (searchBy.equals("Publisher")) {
             resultTable = dbConn.publisherSearch(txt);
         } else if (searchBy.equals("Category")) {
             resultTable = dbConn.categorySearch(txt);
         }
-
-//        System.out.println("IN : SearchViewController ");/// TODO: to be deleted
-//        System.out.println("tring to print table from here "); /// TODO: to be deleted
-//        System.out.println("rows = "+(((Integer)resultTable.size()).toString()) +"Cols = "+(((Integer)resultTable.get(0).size()).toString()));
-
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowTableView.fxml"));
-//        root = loader.load();
-//        ShowTableViewController userController = loader.getController();
-//        userController.initializeView(resultTable, "Search Using " + txt, "SearchView.fxml");
-//        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
-//
-
-
-
+        showResult(use_author);
         searchView_group.setVisible(false);
         resultView_group.setVisible(true);
+
+    }
+    private ObservableList<Book> getBooks(boolean use_author){
+
+        ObservableList<Book> books = FXCollections.observableArrayList();
+        for(Vector<String> v: resultTable){
+            books.add(new Book(v,use_author));
+        }
+        return books;
     }
 
-    private void showResult(Vector<String> tableHeader){
-        System.out.println();
-        /// TODO: draw table
-        for(int i =0; i< resultTable.size(); i++){
-            for(int j = 0; j< resultTable.get(0).size(); j++){
-                System.out.print(resultTable.get(i).get(j) + " ,");
-            }
-            System.out.println();
-        }
+    private void showResult(boolean use_author){
+        resultTableview.setItems(getBooks(use_author));
 
+        for(String s: Book.attributesNames(use_author)){
+            TableColumn<Book,String> col =new TableColumn<>(s);
+            col.setMinWidth(200);
+            col.setCellValueFactory(new PropertyValueFactory<>(s));
+            resultTableview.getColumns().add(col);
+        }
     }
 
     public void backToSearch(){

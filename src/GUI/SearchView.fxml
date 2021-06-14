@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -60,15 +61,20 @@
             <ProgressIndicator fx:id="progressInd" layoutX="264.0" layoutY="240.0" prefHeight="100.0" prefWidth="118.0" visible="false" />
          </children>
       </Group>
-      <Button layoutX="106.0" layoutY="111.0" mnemonicParsing="false" onAction="#backToSearch" text="&lt;">
-         <font>
-            <Font size="23.0" />
-         </font>
-      </Button>
-      <Label fx:id="result_label" layoutX="255.0" layoutY="83.0" prefHeight="108.0" prefWidth="117.0" text="Result">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Label>
+      <Group fx:id="resultView_group" layoutX="9.0" layoutY="-1.0">
+         <children>
+            <TableView fx:id="resultTableview" layoutY="52.0" prefHeight="341.0" prefWidth="581.0" />
+            <Button layoutX="1.0" layoutY="15.0" mnemonicParsing="false" onAction="#backToSearch" prefHeight="14.0" prefWidth="23.0" text="&lt;">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Button>
+            <Label fx:id="result_label" layoutX="232.0" prefHeight="30.0" prefWidth="117.0" text="Result">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
    </children>
 </AnchorPane>

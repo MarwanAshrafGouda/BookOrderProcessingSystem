@@ -44,14 +44,6 @@ public class DefaultViewController {
 
     public void ViewCart(ActionEvent event) throws IOException{
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowTableView.fxml"));
-        root = loader.load();
-        ShowTableViewController userController = loader.getController();
-        userController.initializeView(dbConn.viewCart(), "CART", "DefaultView.fxml");
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
 
     public void Checkout(){
