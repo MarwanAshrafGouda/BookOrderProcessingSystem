@@ -27,25 +27,6 @@ public class EditUserController {
     private PasswordField editPass_oldPassword_txt, editPass_newPassword_txt;
     String back_view;
 
-
-
-    ///TODO: to be deleted
-    Vector<Vector<String>> table;
-    public void initialize(){
-        /// TODO: draw table
-        System.out.println("IN : ShowTableView Initialize Fn ");/// TODO: tobe deleted
-        System.out.println("tring to print table "); /// TODO: tobe deleted
-        for(int i =0; i< table.size(); i++){
-            for(int j = 0; j< table.get(0).size(); j++){
-                System.out.print(table.get(i).get(j) + " ,");
-            }
-            System.out.println();
-        }
-    }
-
-
-
-
     public void setView(String v){
         back_view = v;
     }
