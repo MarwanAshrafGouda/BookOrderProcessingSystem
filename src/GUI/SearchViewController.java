@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -26,6 +27,9 @@ public class SearchViewController {
 
     Vector<Vector<String>> resultTable;
 
+
+    @FXML
+    private Group searchView_group,resultView_group;
     //SearchView Attributes
     @FXML
     private TextField search_txt;
@@ -35,8 +39,17 @@ public class SearchViewController {
     private RadioButton ISBN_rbtn, Title_rbtn, Author_rbtn, Publisher_rbtn, Category_rbtn;
     @FXML
     ProgressIndicator progressInd;
+    //resultView Attributes
+    @FXML
+    private Label result_label;
 
     private String searchBy;
+
+    @FXML
+    public void initialize(){
+        searchView_group.setVisible(true);
+        resultView_group.setVisible(false);
+    }
 
     //SearchView Methods
     public void searchMethod() {
@@ -76,16 +89,35 @@ public class SearchViewController {
 //        System.out.println("tring to print table from here "); /// TODO: to be deleted
 //        System.out.println("rows = "+(((Integer)resultTable.size()).toString()) +"Cols = "+(((Integer)resultTable.get(0).size()).toString()));
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowTableView.fxml"));
-        root = loader.load();
-        ShowTableViewController userController = loader.getController();
-        userController.initializeView(resultTable, "Search Using " + txt, "SearchView.fxml");
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        progressInd.setVisible(false);
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowTableView.fxml"));
+//        root = loader.load();
+//        ShowTableViewController userController = loader.getController();
+//        userController.initializeView(resultTable, "Search Using " + txt, "SearchView.fxml");
+//        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.show();
+//
+        searchView_group.setVisible(false);
+        resultView_group.setVisible(true);
+    }
 
+    private void showResult(Vector<String> tableHeader){
+        System.out.println();
+        /// TODO: draw table
+        for(int i =0; i< resultTable.size(); i++){
+            for(int j = 0; j< resultTable.get(0).size(); j++){
+                System.out.print(resultTable.get(i).get(j) + " ,");
+            }
+            System.out.println();
+        }
+
+    }
+
+    public void backToSearch(){
+        searchView_group.setVisible(true);
+        resultView_group.setVisible(false);
+        progressInd.setVisible(false);
     }
 
     public void back(ActionEvent event) throws IOException {

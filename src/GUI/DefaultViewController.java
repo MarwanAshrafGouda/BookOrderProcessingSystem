@@ -25,6 +25,7 @@ public class DefaultViewController {
     private TextField addToCart_ISBN_txt,addToCart_copies_txt, removeFromCart_ISBN_txt;
     @FXML
     private Button managerOptions;
+    @FXML
     public void initialize(){
         if(dbConn.getIsManager()){
             managerOptions.setDisable(false);
