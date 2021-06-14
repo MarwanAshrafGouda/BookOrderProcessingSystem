@@ -47,7 +47,7 @@ public class SearchViewController {
     @FXML
     private TableView resultTableview;
 
-    private String searchBy;
+    private String searchBy = "ISBN";
 
 
     @FXML
