@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -7,59 +8,79 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.DefaultViewController">
    <children>
-      <Button layoutX="111.0" layoutY="252.0" mnemonicParsing="false" onAction="#RemoveFromCart" text="Remove from Cart" />
-      <Button layoutX="399.0" layoutY="110.0" mnemonicParsing="false" onAction="#ViewCart" prefHeight="26.0" prefWidth="113.0" text="View Cart" />
-      <Button layoutX="399.0" layoutY="160.0" mnemonicParsing="false" onAction="#Checkout" prefHeight="26.0" prefWidth="113.0" text="Checkout" />
-      <Button layoutX="130.0" layoutY="314.0" mnemonicParsing="false" onAction="#searchV" prefHeight="50.0" prefWidth="74.0" text="Search">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Button>
-      <Button fx:id="managerOptions" layoutX="260.0" layoutY="314.0" mnemonicParsing="false" onAction="#managerV" prefHeight="50.0" prefWidth="114.0" text="Manager Options" />
-      <TextField fx:id="removeFromCart_ISBN_txt" layoutX="139.0" layoutY="215.0" />
-      <TextField fx:id="addToCart_copies_txt" layoutX="154.0" layoutY="123.0" />
-      <TextField fx:id="addToCart_ISBN_txt" layoutX="154.0" layoutY="90.0" />
-      <Label layoutX="76.0" layoutY="94.0" prefHeight="18.0" prefWidth="42.0" text="ISBN">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Label layoutX="63.0" layoutY="126.0" text="Copies No.">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Separator layoutX="32.0" layoutY="275.0" prefHeight="18.0" prefWidth="526.0" />
-      <Label layoutX="76.0" layoutY="215.0" prefHeight="18.0" prefWidth="42.0" text="ISBN">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Separator layoutX="71.0" layoutY="200.0" prefHeight="2.0" prefWidth="246.0" />
-      <Button layoutX="118.0" layoutY="160.0" mnemonicParsing="false" onAction="#AddToCart" prefHeight="26.0" prefWidth="106.0" text="Add to Cart" />
-      <Label layoutX="24.0" layoutY="22.0" prefHeight="29.0" prefWidth="100.0" text="Cart:">
-         <font>
-            <Font size="43.0" />
-         </font>
-      </Label>
-      <MenuBar layoutX="417.0" layoutY="1.0" prefHeight="26.0" prefWidth="74.0" visible="false">
-        <menus>
-            <Menu mnemonicParsing="false" text="Options">
-               <items>
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#LogOut" text="Logout" />
-               </items>
-            </Menu>
-        </menus>
-      </MenuBar>
-      <Button layoutX="481.0" layoutY="301.0" mnemonicParsing="false" onAction="#EditUserInfo" text="Edit User Info" />
-      <Button layoutX="454.0" layoutY="339.0" mnemonicParsing="false" onAction="#EditUserPassword" text="Edit User Password" />
-      <Button layoutX="542.0" layoutY="1.0" mnemonicParsing="false" onAction="#LogOut" text="Logout" />
+      <Group fx:id="default_group" layoutX="29.0" layoutY="5.0">
+         <children>
+            <Button layoutX="87.0" layoutY="251.0" mnemonicParsing="false" onAction="#RemoveFromCart" text="Remove from Cart" />
+            <Button layoutX="375.0" layoutY="109.0" mnemonicParsing="false" onAction="#ViewCart" prefHeight="26.0" prefWidth="113.0" text="View Cart" />
+            <Button layoutX="375.0" layoutY="159.0" mnemonicParsing="false" onAction="#Checkout" prefHeight="26.0" prefWidth="113.0" text="Checkout" />
+            <Button layoutX="106.0" layoutY="313.0" mnemonicParsing="false" onAction="#searchV" prefHeight="50.0" prefWidth="74.0" text="Search">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="managerOptions" layoutX="236.0" layoutY="313.0" mnemonicParsing="false" onAction="#managerV" prefHeight="50.0" prefWidth="114.0" text="Manager Options" />
+            <TextField fx:id="removeFromCart_ISBN_txt" layoutX="115.0" layoutY="214.0" />
+            <TextField fx:id="addToCart_copies_txt" layoutX="130.0" layoutY="122.0" />
+            <TextField fx:id="addToCart_ISBN_txt" layoutX="130.0" layoutY="89.0" />
+            <Label layoutX="52.0" layoutY="93.0" prefHeight="18.0" prefWidth="42.0" text="ISBN">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="39.0" layoutY="125.0" text="Copies No.">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Separator layoutX="8.0" layoutY="274.0" prefHeight="18.0" prefWidth="526.0" />
+            <Label layoutX="52.0" layoutY="214.0" prefHeight="18.0" prefWidth="42.0" text="ISBN">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Separator layoutX="47.0" layoutY="199.0" prefHeight="2.0" prefWidth="246.0" />
+            <Button layoutX="94.0" layoutY="159.0" mnemonicParsing="false" onAction="#AddToCart" prefHeight="26.0" prefWidth="106.0" text="Add to Cart" />
+            <Label layoutY="21.0" prefHeight="29.0" prefWidth="100.0" text="Cart:">
+               <font>
+                  <Font size="43.0" />
+               </font>
+            </Label>
+            <MenuBar layoutX="393.0" prefHeight="26.0" prefWidth="74.0" visible="false">
+              <menus>
+                  <Menu mnemonicParsing="false" text="Options">
+                     <items>
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#LogOut" text="Logout" />
+                     </items>
+                  </Menu>
+              </menus>
+            </MenuBar>
+            <Button layoutX="457.0" layoutY="300.0" mnemonicParsing="false" onAction="#EditUserInfo" text="Edit User Info" />
+            <Button layoutX="430.0" layoutY="338.0" mnemonicParsing="false" onAction="#EditUserPassword" text="Edit User Password" />
+            <Button layoutX="488.0" layoutY="9.0" mnemonicParsing="false" onAction="#LogOut" text="Logout" />
+         </children>
+      </Group>
+      <Group fx:id="cart_group" layoutY="5.0" visible="false">
+         <children>
+            <TableView fx:id="cartContent" layoutX="6.0" layoutY="52.0" prefHeight="341.0" prefWidth="592.0" />
+            <Button layoutX="9.0" layoutY="4.0" mnemonicParsing="false" onAction="#backToDefaultView" prefHeight="14.0" prefWidth="23.0" text="&lt;">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Button>
+            <Label fx:id="result_label" layoutX="243.0" layoutY="2.0" prefHeight="53.0" prefWidth="71.0" text="Cart">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
    </children>
 </AnchorPane>

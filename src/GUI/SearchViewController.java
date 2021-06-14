@@ -43,8 +43,7 @@ public class SearchViewController {
     @FXML
     ProgressIndicator progressInd;
     //resultView Attributes
-    @FXML
-    private Label result_label;
+
     @FXML
     private TableView resultTableview;
 

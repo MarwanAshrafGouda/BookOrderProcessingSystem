@@ -58,7 +58,7 @@ public class DefaultViewController {
         dbConn.removeFromCart(Integer.parseInt(removeFromCart_ISBN_txt.getText()));
     }
 
-    public void ViewCart(ActionEvent event) throws IOException{
+    public void ViewCart(){
         showResult(dbConn.viewCart());
         default_group.setVisible(false);
         cart_group.setVisible(true);
