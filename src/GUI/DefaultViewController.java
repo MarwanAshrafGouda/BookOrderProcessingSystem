@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -32,11 +33,16 @@ public class DefaultViewController {
     @FXML
     private Button managerOptions;
 
+    @FXML
+    private Group default_group, cart_group;
+
     //cart:
     @FXML
     private TableView cartContent;
     @FXML
     public void initialize(){
+        default_group.setVisible(true);
+        cart_group.setVisible(false);
         if(dbConn.getIsManager()){
             managerOptions.setDisable(false);
         }else{
@@ -54,6 +60,8 @@ public class DefaultViewController {
 
     public void ViewCart(ActionEvent event) throws IOException{
         showResult(dbConn.viewCart());
+        default_group.setVisible(false);
+        cart_group.setVisible(true);
     }
 
     private ObservableList<Cart> getCart(Vector<Vector<String>> resultTable){
@@ -69,7 +77,7 @@ public class DefaultViewController {
         cartContent.setItems(getCart(resultTable));
         for(String s: Cart.attributesNames()){
             TableColumn<Cart,String> col =new TableColumn<>(s);
-            s.replaceAll("\\s","");
+            s = s.replaceAll("\\s","");
             col.setMinWidth(200);
             col.setCellValueFactory(new PropertyValueFactory<>(s));
             cartContent.getColumns().add(col);
@@ -121,5 +129,11 @@ public class DefaultViewController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void backToDefaultView(){
+        default_group.setVisible(true);
+        cart_group.setVisible(false);
+
     }
 }
