@@ -137,7 +137,7 @@ public class JDBCConnection implements IJDBCConnection {
     }
 
     @Override
-    public void modifyBook(int ISBN, int newISBN, String title, String authors, String publisher, int publicationYear, int sellingPrice, String category, int threshold) {
+    public void modifyBook(int ISBN, int newISBN, String title, String authors, String publisher, int publicationYear, double sellingPrice, String category, int threshold) {
         String[] arrOfAuthors = authors.split(","), databaseInformation = JDBCConnect();
         try (
                 Connection conn = DriverManager.getConnection(databaseInformation[0], databaseInformation[1], databaseInformation[2]);

@@ -48,9 +48,9 @@ public class UpdateBookController{
     public void update() {
         progressInd_update.setVisible(true);
         if (updateType) {
-            dbConn.addBook(Integer.parseInt(ISBN_txt.getText()), title_txt.getText(), authors_txt.getText(), publisher_txt.getText(), Integer.parseInt(publicationYear_txt.getText()), Integer.parseInt(sellingPrice_txt.getText()), category_txt.getText(), Integer.parseInt(threshold_txt.getText()));
+            dbConn.addBook(Integer.parseInt(ISBN_txt.getText()), title_txt.getText(), authors_txt.getText(), publisher_txt.getText(), Integer.parseInt(publicationYear_txt.getText()), Double.parseDouble(sellingPrice_txt.getText()), category_txt.getText(), Integer.parseInt(threshold_txt.getText()));
         }else {
-            dbConn.modifyBook(Integer.parseInt(ISBN_txt.getText()),Integer.parseInt(newISBN_txt.getText()), title_txt.getText(), authors_txt.getText(), publisher_txt.getText(), Integer.parseInt(publicationYear_txt.getText()), Integer.parseInt(sellingPrice_txt.getText()), category_txt.getText(), Integer.parseInt(threshold_txt.getText()));
+            dbConn.modifyBook(Integer.parseInt(ISBN_txt.getText()),Integer.parseInt(newISBN_txt.getText()), title_txt.getText(), authors_txt.getText(), publisher_txt.getText(), Integer.parseInt(publicationYear_txt.getText()), Double.parseDouble(sellingPrice_txt.getText()), category_txt.getText(), Integer.parseInt(threshold_txt.getText()));
         }
         progressInd_update.setVisible(false);
     }
