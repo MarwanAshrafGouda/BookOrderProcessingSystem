@@ -50,7 +50,7 @@ public interface IJDBCConnection {
     // manager
     void addPublisher(String name, String address, String phoneNumber);
     // manager
-    void modifyBook(int ISBN, int newISBN, String title, String authors, String publisher, int publicationYear, int sellingPrice, String category, int threshold);
+    void modifyBook(int ISBN, int newISBN, String title, String authors, String publisher, int publicationYear, double sellingPrice, String category, int threshold);
     // manager
     void promoteUser(String username);
     // manager
