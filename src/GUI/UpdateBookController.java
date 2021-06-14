@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class UpdateBookController{
+public class UpdateBookController {
     IJDBCConnection dbConn = JDBCConnection.getInstance();
     @FXML
     private Stage stage;
@@ -26,7 +26,7 @@ public class UpdateBookController{
     @FXML
     Label updateType_label;
     @FXML
-    private TextField ISBN_txt , newISBN_txt , title_txt , authors_txt, publisher_txt, publicationYear_txt, sellingPrice_txt, category_txt, threshold_txt;
+    private TextField ISBN_txt, newISBN_txt, title_txt, authors_txt, publisher_txt, publicationYear_txt, sellingPrice_txt, category_txt, threshold_txt;
     @FXML
     ProgressIndicator progressInd_update;
     @FXML
@@ -36,10 +36,10 @@ public class UpdateBookController{
 
     public void setUpdateType(boolean type) {
         updateType = type;
-        if(type){
+        if (type) {
             updateType_label.setText("ADD BOOK");
             newISBN_group.setVisible(false);
-        }else{
+        } else {
             updateType_label.setText("Modify BOOK");
             newISBN_group.setVisible(true);
         }
@@ -49,15 +49,15 @@ public class UpdateBookController{
         progressInd_update.setVisible(true);
         if (updateType) {
             dbConn.addBook(Integer.parseInt(ISBN_txt.getText()), title_txt.getText(), authors_txt.getText(), publisher_txt.getText(), Integer.parseInt(publicationYear_txt.getText()), Double.parseDouble(sellingPrice_txt.getText()), category_txt.getText(), Integer.parseInt(threshold_txt.getText()));
-        }else {
-            dbConn.modifyBook(Integer.parseInt(ISBN_txt.getText()),Integer.parseInt(newISBN_txt.getText()), title_txt.getText(), authors_txt.getText(), publisher_txt.getText(), Integer.parseInt(publicationYear_txt.getText()), Double.parseDouble(sellingPrice_txt.getText()), category_txt.getText(), Integer.parseInt(threshold_txt.getText()));
+        } else {
+            dbConn.modifyBook(Integer.parseInt(ISBN_txt.getText()), Integer.parseInt(newISBN_txt.getText()), title_txt.getText(), authors_txt.getText(), publisher_txt.getText(), Integer.parseInt(publicationYear_txt.getText()), Double.parseDouble(sellingPrice_txt.getText()), category_txt.getText(), Integer.parseInt(threshold_txt.getText()));
         }
         progressInd_update.setVisible(false);
     }
 
     public void back(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("ManagerView.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

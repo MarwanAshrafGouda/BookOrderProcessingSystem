@@ -24,16 +24,17 @@ public class LogInController {
     private Parent root;
 
     @FXML
-    private TextField username_txt  ,userName_txt, firstName_txt,lastName_txt, emailAddress_txt, phone_txt,  shippingAddress_txt;
+    private TextField username_txt, userName_txt, firstName_txt, lastName_txt, emailAddress_txt, phone_txt, shippingAddress_txt;
     @FXML
     private PasswordField signUp_Password_txt, logIn_password_txt;
 
     public void logIn(ActionEvent event) throws IOException {
-        if(dbConn.signIn(username_txt.getText(), logIn_password_txt.getText()))
+        if (dbConn.signIn(username_txt.getText(), logIn_password_txt.getText()))
             changeScene(event, "DefaultView.fxml");
     }
+
     public void signUp(ActionEvent event) throws IOException {
-        dbConn.signUp(userName_txt.getText(), signUp_Password_txt.getText(), firstName_txt.getText(),lastName_txt.getText(), emailAddress_txt.getText(), phone_txt.getText(),  shippingAddress_txt.getText());
+        dbConn.signUp(userName_txt.getText(), signUp_Password_txt.getText(), firstName_txt.getText(), lastName_txt.getText(), emailAddress_txt.getText(), phone_txt.getText(), shippingAddress_txt.getText());
         /// to move to the defaultView there is an extra logical work must be done ,so for simplicity after singing up move to loginView
         changeScene(event, "LogIn.fxml");
     }
@@ -48,18 +49,18 @@ public class LogInController {
 
     private void changeScene(ActionEvent event, String strScene) throws IOException {
         root = FXMLLoader.load(getClass().getResource(strScene));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
-    public void popMSG(Stage stage, String msg){
+    public void popMSG(Stage stage, String msg) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Logout");
         alert.setHeaderText("You're about to logout!");
         alert.setContentText("Are you sure?");
-        if (alert.showAndWait().get() == ButtonType.OK){
+        if (alert.showAndWait().get() == ButtonType.OK) {
             stage.close();
         }
     }

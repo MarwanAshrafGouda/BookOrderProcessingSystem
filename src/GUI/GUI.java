@@ -17,7 +17,7 @@ public class GUI extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        try{
+        try {
             primaryStage.setTitle("BookStore");
             Image icon = new Image("GUI/logo.jpg");
             primaryStage.getIcons().add(icon);
@@ -33,16 +33,17 @@ public class GUI extends Application {
                 logout(primaryStage);
             });
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    public void logout(Stage stage){
+
+    public void logout(Stage stage) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Logout");
         alert.setHeaderText("You're about to logout!");
         alert.setContentText("Are you sure?");
-        if (alert.showAndWait().get() == ButtonType.OK){
+        if (alert.showAndWait().get() == ButtonType.OK) {
             System.out.println("You successfully closed the application");
             stage.close();
         }

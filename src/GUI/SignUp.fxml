@@ -7,30 +7,39 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="447.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LogInController">
-   <children>
-      <Button id="signup_btn" layoutX="271.0" layoutY="344.0" mnemonicParsing="false" onAction="#signUp" text="Sign Up" />
-      <Label layoutX="196.0" layoutY="30.0" text="Sign Up">
-         <font>
-            <Font size="45.0" />
-         </font>
-      </Label>
-      <Label layoutX="31.0" layoutY="173.0" text="First Name" underline="true" />
-      <Label layoutX="325.0" layoutY="173.0" text="Last Name" underline="true" />
-      <Label layoutX="33.0" layoutY="300.0" text="Shipping address" underline="true" />
-      <Label layoutX="33.0" layoutY="259.0" text="Phone number" underline="true" />
-      <Label layoutX="232.0" layoutY="379.0" text="Have an account?" />
-      <Label id="login_label" layoutX="329.0" layoutY="379.0" text="LOG IN" textFill="#0d00ff" underline="true" />
-      <Label layoutX="33.0" layoutY="132.0" text="Username" underline="true" />
-      <Label layoutX="327.0" layoutY="141.0" text="Password" underline="true" />
-      <Label layoutX="33.0" layoutY="215.0" text="E-mai address" underline="true" />
-      <TextField id="username_text" fx:id="userName_txt" layoutX="121.0" layoutY="133.0" prefHeight="26.0" prefWidth="191.0" />
-      <TextField id="firstName_text" fx:id="firstName_txt" layoutX="121.0" layoutY="169.0" prefHeight="26.0" prefWidth="191.0" />
-      <TextField id="email_text" fx:id="emailAddress_txt" layoutX="121.0" layoutY="211.0" prefHeight="26.0" prefWidth="273.0" />
-      <TextField id="lastName_text" fx:id="lastName_txt" layoutX="388.0" layoutY="169.0" prefHeight="26.0" prefWidth="150.0" />
-      <TextField id="phoneNumber_text" fx:id="phone_txt" layoutX="121.0" layoutY="255.0" prefHeight="26.0" prefWidth="238.0" />
-      <TextField id="shippingAddress_text" fx:id="shippingAddress_txt" layoutX="136.0" layoutY="295.0" prefHeight="26.0" prefWidth="400.0" />
-      <Button id="logIn_btn" layoutX="329.0" layoutY="374.0" mnemonicParsing="false" onAction="#switchToLogIn" opacity="0.0" prefHeight="26.0" prefWidth="38.0" />
-      <PasswordField fx:id="signUp_Password_txt" layoutX="388.0" layoutY="137.0" />
-   </children>
+<AnchorPane prefHeight="447.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="GUI.LogInController">
+    <children>
+        <Button id="signup_btn" layoutX="271.0" layoutY="344.0" mnemonicParsing="false" onAction="#signUp"
+                text="Sign Up"/>
+        <Label layoutX="196.0" layoutY="30.0" text="Sign Up">
+            <font>
+                <Font size="45.0"/>
+            </font>
+        </Label>
+        <Label layoutX="31.0" layoutY="173.0" text="First Name" underline="true"/>
+        <Label layoutX="325.0" layoutY="173.0" text="Last Name" underline="true"/>
+        <Label layoutX="33.0" layoutY="300.0" text="Shipping address" underline="true"/>
+        <Label layoutX="33.0" layoutY="259.0" text="Phone number" underline="true"/>
+        <Label layoutX="232.0" layoutY="379.0" text="Have an account?"/>
+        <Label id="login_label" layoutX="329.0" layoutY="379.0" text="LOG IN" textFill="#0d00ff" underline="true"/>
+        <Label layoutX="33.0" layoutY="132.0" text="Username" underline="true"/>
+        <Label layoutX="327.0" layoutY="141.0" text="Password" underline="true"/>
+        <Label layoutX="33.0" layoutY="215.0" text="E-mai address" underline="true"/>
+        <TextField id="username_text" fx:id="userName_txt" layoutX="121.0" layoutY="133.0" prefHeight="26.0"
+                   prefWidth="191.0"/>
+        <TextField id="firstName_text" fx:id="firstName_txt" layoutX="121.0" layoutY="169.0" prefHeight="26.0"
+                   prefWidth="191.0"/>
+        <TextField id="email_text" fx:id="emailAddress_txt" layoutX="121.0" layoutY="211.0" prefHeight="26.0"
+                   prefWidth="273.0"/>
+        <TextField id="lastName_text" fx:id="lastName_txt" layoutX="388.0" layoutY="169.0" prefHeight="26.0"
+                   prefWidth="150.0"/>
+        <TextField id="phoneNumber_text" fx:id="phone_txt" layoutX="121.0" layoutY="255.0" prefHeight="26.0"
+                   prefWidth="238.0"/>
+        <TextField id="shippingAddress_text" fx:id="shippingAddress_txt" layoutX="136.0" layoutY="295.0"
+                   prefHeight="26.0" prefWidth="400.0"/>
+        <Button id="logIn_btn" layoutX="329.0" layoutY="374.0" mnemonicParsing="false" onAction="#switchToLogIn"
+                opacity="0.0" prefHeight="26.0" prefWidth="38.0"/>
+        <PasswordField fx:id="signUp_Password_txt" layoutX="388.0" layoutY="137.0"/>
+    </children>
 </AnchorPane>

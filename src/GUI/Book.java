@@ -15,7 +15,7 @@ public class Book {
     private String NumberOfCopiesInStock;
     private String Author;
 
-    public Book(){
+    public Book() {
         this.ISBN = "NULL";
         this.Title = "NULL";
         this.PublisherName = "NULL";
@@ -25,7 +25,8 @@ public class Book {
         this.NumberOfCopiesInStock = "NULL";
         this.Author = "NULL";
     }
-    public Book(Vector<String> tableHeader, boolean author){
+
+    public Book(Vector<String> tableHeader, boolean author) {
         this.ISBN = tableHeader.get(0);
         this.Title = tableHeader.get(1);
         this.PublisherName = tableHeader.get(2);
@@ -34,14 +35,14 @@ public class Book {
         this.PublicationYear = tableHeader.get(5);
         this.NumberOfCopiesInStock = tableHeader.get(6);
 
-        if(author)
+        if (author)
             this.Author = tableHeader.get(7);
         else
             this.Author = "NULL";
     }
 
-    public static String[] attributesNames(boolean author){
-        if(author)
+    public static String[] attributesNames(boolean author) {
+        if (author)
             return new String[]{"ISBN", "Title", "Publisher Name", "Category", "Price", "Publication Year", "Number Of Copies In Stock", "Author"};
         else
             return new String[]{"ISBN", "Title", "Publisher Name", "Category", "Price", "Publication Year", "Number Of Copies In Stock"};
@@ -102,7 +103,6 @@ public class Book {
     public void setPublicationYear(String publicationYear) {
         PublicationYear = publicationYear;
     }
-
 
 
     public String getAuthor() {

@@ -7,28 +7,34 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.LogInController">
-   <children>
-      <Label layoutX="88.0" layoutY="140.0" text="Username">
-         <font>
-            <Font name="System Italic" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="88.0" layoutY="192.0" text="Password">
-         <font>
-            <Font name="System Italic" size="18.0" />
-         </font>
-      </Label>
-      <Label id="login_label" contentDisplay="CENTER" layoutX="210.0" layoutY="35.0" prefHeight="18.0" prefWidth="150.0" text="Sign In" AnchorPane.rightAnchor="239.60000000000002">
-         <font>
-            <Font size="45.0" />
-         </font>
-      </Label>
-      <TextField id="username_text" fx:id="username_txt" layoutX="190.0" layoutY="140.0" prefHeight="26.0" prefWidth="219.0" />
-      <Label layoutX="162.0" layoutY="294.0" text="Don't have an account?" />
-      <Button layoutX="223.0" layoutY="255.0" mnemonicParsing="false" onAction="#logIn" prefHeight="26.0" prefWidth="125.0" text="LOG IN" />
-      <Label layoutX="300.0" layoutY="294.0" text="Sign Up" textAlignment="CENTER" textFill="#1c04cf" underline="true" />
-      <Button id="signUp_btn" layoutX="295.0" layoutY="290.0" mnemonicParsing="false" onAction="#switchToSignUp" opacity="0.0" prefHeight="26.0" prefWidth="53.0" />
-      <PasswordField fx:id="logIn_password_txt" layoutX="190.0" layoutY="192.0" prefHeight="26.0" prefWidth="219.0" />
-   </children>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="GUI.LogInController">
+    <children>
+        <Label layoutX="88.0" layoutY="140.0" text="Username">
+            <font>
+                <Font name="System Italic" size="18.0"/>
+            </font>
+        </Label>
+        <Label layoutX="88.0" layoutY="192.0" text="Password">
+            <font>
+                <Font name="System Italic" size="18.0"/>
+            </font>
+        </Label>
+        <Label id="login_label" contentDisplay="CENTER" layoutX="210.0" layoutY="35.0" prefHeight="18.0"
+               prefWidth="150.0" text="Sign In" AnchorPane.rightAnchor="239.60000000000002">
+            <font>
+                <Font size="45.0"/>
+            </font>
+        </Label>
+        <TextField id="username_text" fx:id="username_txt" layoutX="190.0" layoutY="140.0" prefHeight="26.0"
+                   prefWidth="219.0"/>
+        <Label layoutX="162.0" layoutY="294.0" text="Don't have an account?"/>
+        <Button layoutX="223.0" layoutY="255.0" mnemonicParsing="false" onAction="#logIn" prefHeight="26.0"
+                prefWidth="125.0" text="LOG IN"/>
+        <Label layoutX="300.0" layoutY="294.0" text="Sign Up" textAlignment="CENTER" textFill="#1c04cf"
+               underline="true"/>
+        <Button id="signUp_btn" layoutX="295.0" layoutY="290.0" mnemonicParsing="false" onAction="#switchToSignUp"
+                opacity="0.0" prefHeight="26.0" prefWidth="53.0"/>
+        <PasswordField fx:id="logIn_password_txt" layoutX="190.0" layoutY="192.0" prefHeight="26.0" prefWidth="219.0"/>
+    </children>
 </AnchorPane>

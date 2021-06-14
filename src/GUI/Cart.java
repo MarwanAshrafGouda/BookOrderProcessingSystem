@@ -12,30 +12,30 @@ public class Cart {
     private String UnitPrice;
     private String Price;
 
-    public Cart(){
-        this.ISBN= "NULL";
-        this.Title= "NULL";
-        this.Category= "NULL";
-        this.PublisherName= "NULL";
-        this.PublicationYear= "NULL";
-        this.Quantity= "NULL";
-        this.UnitPrice= "NULL";
-        this.Price= "NULL";
+    public Cart() {
+        this.ISBN = "NULL";
+        this.Title = "NULL";
+        this.Category = "NULL";
+        this.PublisherName = "NULL";
+        this.PublicationYear = "NULL";
+        this.Quantity = "NULL";
+        this.UnitPrice = "NULL";
+        this.Price = "NULL";
     }
 
-    public Cart(Vector<String> tableHeader){
-        this.ISBN= tableHeader.get(0);
-        this.Title= tableHeader.get(1);
-        this.Category= tableHeader.get(2);
-        this.PublisherName= tableHeader.get(3);
-        this.PublicationYear= tableHeader.get(4);
-        this.Quantity= tableHeader.get(5);
-        this.UnitPrice= tableHeader.get(6);
-        this.Price= tableHeader.get(7);
+    public Cart(Vector<String> tableHeader) {
+        this.ISBN = tableHeader.get(0);
+        this.Title = tableHeader.get(1);
+        this.Category = tableHeader.get(2);
+        this.PublisherName = tableHeader.get(3);
+        this.PublicationYear = tableHeader.get(4);
+        this.Quantity = tableHeader.get(5);
+        this.UnitPrice = tableHeader.get(6);
+        this.Price = tableHeader.get(7);
     }
 
-    public static String[] attributesNames(){
-        return new String[] {"ISBN", "Title", "Category", "Publisher Name",  "Publication Year", "Quantity", "UnitPrice", "Price"};
+    public static String[] attributesNames() {
+        return new String[]{"ISBN", "Title", "Category", "Publisher Name", "Publication Year", "Quantity", "UnitPrice", "Price"};
     }
 
     public String getISBN() {

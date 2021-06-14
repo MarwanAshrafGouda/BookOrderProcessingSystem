@@ -32,7 +32,7 @@ public class SearchViewController {
 
 
     @FXML
-    private Group searchView_group,resultView_group;
+    private Group searchView_group, resultView_group;
     //SearchView Attributes
     @FXML
     private TextField search_txt;
@@ -51,7 +51,7 @@ public class SearchViewController {
 
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         searchView_group.setVisible(true);
         resultView_group.setVisible(false);
     }
@@ -97,28 +97,28 @@ public class SearchViewController {
 
     }
 
-    private ObservableList<Book> getBooks(boolean use_author){
+    private ObservableList<Book> getBooks(boolean use_author) {
         ObservableList<Book> books = FXCollections.observableArrayList();
-        for(Vector<String> v: resultTable){
-            books.add(new Book(v,use_author));
+        for (Vector<String> v : resultTable) {
+            books.add(new Book(v, use_author));
         }
         return books;
     }
 
 
-    private void showResult(boolean use_author){
+    private void showResult(boolean use_author) {
         resultTableview.getColumns().clear();
         resultTableview.setItems(getBooks(use_author));
-        for(String s: Book.attributesNames(use_author)){
-            TableColumn<Book,String> col =new TableColumn<>(s);
-            s = s.replaceAll("\\s","");
+        for (String s : Book.attributesNames(use_author)) {
+            TableColumn<Book, String> col = new TableColumn<>(s);
+            s = s.replaceAll("\\s", "");
             col.setMinWidth(200);
             col.setCellValueFactory(new PropertyValueFactory<>(s));
             resultTableview.getColumns().add(col);
         }
     }
 
-    public void backToSearch(){
+    public void backToSearch() {
         searchView_group.setVisible(true);
         resultView_group.setVisible(false);
         progressInd.setVisible(false);
