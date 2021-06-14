@@ -25,6 +25,7 @@ public class DefaultViewController {
     private TextField addToCart_ISBN_txt,addToCart_copies_txt, removeFromCart_ISBN_txt;
     @FXML
     private Button managerOptions;
+    @FXML
     public void initialize(){
         if(dbConn.getIsManager()){
             managerOptions.setDisable(false);
@@ -43,14 +44,6 @@ public class DefaultViewController {
 
     public void ViewCart(ActionEvent event) throws IOException{
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowTableView.fxml"));
-        root = loader.load();
-        ShowTableViewController userController = loader.getController();
-        userController.initializeView(dbConn.viewCart(), "CART", "DefaultView.fxml");
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
 
     public void Checkout(){

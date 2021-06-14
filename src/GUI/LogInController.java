@@ -8,6 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -32,6 +34,15 @@ public class LogInController {
     }
     public void signUp(ActionEvent event) throws IOException {
         dbConn.signUp(userName_txt.getText(), signUp_Password_txt.getText(), firstName_txt.getText(),lastName_txt.getText(), emailAddress_txt.getText(), phone_txt.getText(),  shippingAddress_txt.getText());
+        /// to move to the defaultView there is an extra logical work must be done ,so for simplicity after singing up move to loginView
+        changeScene(event, "LogIn.fxml");
+    }
+
+    public void switchToSignUp(ActionEvent event) throws IOException {
+        changeScene(event, "SignUp.fxml");
+    }
+
+    public void switchToLogIn(ActionEvent event) throws IOException {
         changeScene(event, "LogIn.fxml");
     }
 
@@ -43,19 +54,13 @@ public class LogInController {
         stage.show();
     }
 
-    public void switchToSignUp(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("SignUp.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public void switchToLogIn(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("LogIn.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    public void popMSG(Stage stage, String msg){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Logout");
+        alert.setHeaderText("You're about to logout!");
+        alert.setContentText("Are you sure?");
+        if (alert.showAndWait().get() == ButtonType.OK){
+            stage.close();
+        }
     }
 }
