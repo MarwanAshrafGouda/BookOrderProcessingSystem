@@ -36,8 +36,6 @@ public class Book {
 
         if(author)
             this.Author = tableHeader.get(7);
-
-        ObservableList<String > h;
     }
 
     public static String[] attributesNames(boolean author){
