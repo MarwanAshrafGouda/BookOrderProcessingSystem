@@ -9,6 +9,8 @@ import jasper.JasperManager;
 import jasper.JasperManagerCSV;
 import jasper.JasperManager.Template;
 
+import GUI.EMsg;
+
 public class JDBCConnection implements IJDBCConnection {
 
     private JDBCConnection() {
@@ -65,6 +67,7 @@ public class JDBCConnection implements IJDBCConnection {
             this.username = username;
         } catch (SQLException e) {
             // call mostafa 01274 e.getMessage()
+            EMsg.error("Sign UP", "ERROR", e.getMessage());
             e.printStackTrace();
         }
     }
@@ -86,6 +89,7 @@ public class JDBCConnection implements IJDBCConnection {
             logedIn = true;
         } catch (SQLException e) {
             // call mostafa 01274 e.getMessage()
+            EMsg.error("Sign In", "ERROR", e.getMessage());
             e.printStackTrace();
             logedIn = false;
         }
@@ -115,6 +119,7 @@ public class JDBCConnection implements IJDBCConnection {
             }
         } catch (SQLException e) {
             // call mostafa 01274 e.getMessage()
+            EMsg.error("Adding Book", "ERROR", e.getMessage());
             e.printStackTrace();
         }
     }
@@ -132,6 +137,7 @@ public class JDBCConnection implements IJDBCConnection {
             statement.execute();
         } catch (SQLException e) {
             // call mostafa 01274 e.getMessage()
+            EMsg.error("Adding Publisher", "ERROR", e.getMessage());
             e.printStackTrace();
         }
     }
@@ -163,6 +169,7 @@ public class JDBCConnection implements IJDBCConnection {
             }
         } catch (SQLException e) {
             // call mostafa 01274 e.getMessage()
+            EMsg.error("Modifying Book", "ERROR", e.getMessage());
             e.printStackTrace();
         }
     }
@@ -323,6 +330,7 @@ public class JDBCConnection implements IJDBCConnection {
             statement.execute();
         } catch (SQLException e) {
             // call mostafa 01274 e.getMessage()
+            EMsg.error("Editing User Information", "ERROR", e.getMessage());
             e.printStackTrace();
         }
     }
@@ -340,6 +348,7 @@ public class JDBCConnection implements IJDBCConnection {
             statement.execute();
         } catch (SQLException e) {
             // call mostafa 01274 e.getMessage()
+            EMsg.error("Editing User Password", "ERROR", e.getMessage());
             e.printStackTrace();
         }
     }

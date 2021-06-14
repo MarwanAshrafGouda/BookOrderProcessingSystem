@@ -18,7 +18,7 @@ public class GUI extends Application {
     @Override
     public void start(Stage primaryStage) {
         try{
-            primaryStage.setTitle("شبب بيت زعطوط BookStore");
+            primaryStage.setTitle("BookStore");
             Image icon = new Image("GUI/logo.jpg");
             primaryStage.getIcons().add(icon);
             Parent root = FXMLLoader.load(getClass().getResource("LogIn.fxml"));
