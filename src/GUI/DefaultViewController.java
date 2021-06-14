@@ -2,6 +2,8 @@ package GUI;
 
 import Connection.IJDBCConnection;
 import Connection.JDBCConnection;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,10 +11,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Vector;
 
 public class DefaultViewController {
 
@@ -25,6 +31,10 @@ public class DefaultViewController {
     private TextField addToCart_ISBN_txt,addToCart_copies_txt, removeFromCart_ISBN_txt;
     @FXML
     private Button managerOptions;
+
+    //cart:
+    @FXML
+    private TableView cartContent;
     @FXML
     public void initialize(){
         if(dbConn.getIsManager()){
@@ -43,7 +53,31 @@ public class DefaultViewController {
     }
 
     public void ViewCart(ActionEvent event) throws IOException{
+        showResult(dbConn.viewCart());
+    }
+    public void clearTableView(){
+        for ( int i = 0; i<cartContent.getItems().size(); i++) {
+            cartContent.getItems().clear();
+        }
+    }
 
+    private ObservableList<Cart> getCart(Vector<Vector<String>> resultTable){
+        ObservableList<Cart> books = FXCollections.observableArrayList();
+        for(Vector<String> v: resultTable){
+            books.add(new Cart(v));
+        }
+        return books;
+    }
+
+    private void showResult(Vector<Vector<String>> resultTable){
+        clearTableView();
+        cartContent.setItems(getCart(resultTable));
+        for(String s: Cart.attributesNames()){
+            TableColumn<Cart,String> col =new TableColumn<>(s);
+            col.setMinWidth(200);
+            col.setCellValueFactory(new PropertyValueFactory<>(s));
+            cartContent.getColumns().add(col);
+        }
     }
 
     public void Checkout(){

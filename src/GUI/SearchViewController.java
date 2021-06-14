@@ -97,18 +97,23 @@ public class SearchViewController {
         resultView_group.setVisible(true);
 
     }
-    private ObservableList<Book> getBooks(boolean use_author){
 
+    private ObservableList<Book> getBooks(boolean use_author){
         ObservableList<Book> books = FXCollections.observableArrayList();
         for(Vector<String> v: resultTable){
             books.add(new Book(v,use_author));
         }
         return books;
     }
+    public void clearTableView(){
+        for ( int i = 0; i<resultTableview.getItems().size(); i++) {
+            resultTableview.getItems().clear();
+        }
+    }
 
     private void showResult(boolean use_author){
+        clearTableView();
         resultTableview.setItems(getBooks(use_author));
-
         for(String s: Book.attributesNames(use_author)){
             TableColumn<Book,String> col =new TableColumn<>(s);
             col.setMinWidth(200);
